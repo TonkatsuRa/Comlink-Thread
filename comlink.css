@@ -1,0 +1,254 @@
+/* Body */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  background-image: url('SRBG.jpg');
+  background-size: cover;
+  background-color: rgba(34, 34, 34, 0.7);
+  color: #fff;
+  display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 350px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(5px);
+}
+
+.sidebar h2 {
+  margin: 0 0 20px;
+  font-size: 1.5rem;
+  color: #0ff;
+}
+
+.aui-button {
+  --button-color: #0ff;
+  --button-background: #000;
+  padding: 8px 12px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.aui-button:hover {
+  --button-color: #FFFF00;
+  --button-background: #F;
+}
+
+input[type="text"],
+textarea,
+select {
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid #FFFF00;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1rem;
+  color: #fff;
+  outline: none;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+input[type="file"] {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+/* Comlink container */
+.comlink-container {
+  width: 600px;
+  border: 3px solid #FFFF00;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 auto;
+  backdrop-filter: blur(3px);
+}
+
+.comlink-container[augmented-ui="b-clip"] {
+  --aug-border: initial;
+  --aug-border-all: 3px;
+  --aug-border-color: #FFFF00;
+  --aug-clip-b1: 25px;
+  --aug-clip-b2: 50px;
+  --aug-b-extend1: 20%;
+}
+
+/* Top decal */
+.comlink-container.top-aligned {
+  background-image: url('top.jpg');
+  background-size: cover;
+}
+
+/* Bottom decal */
+.comlink-container.bottom-aligned {
+  background-image: url('top.jpg');
+  background-size: cover;
+}
+
+/* Left decal */
+.comlink-container.left-aligned {
+  background-image: url('path/to/left-decal-image.jpg');
+  background-size: cover;
+}
+
+/* Right decal */
+.comlink-container.right-aligned {
+  background-image: url('path/to/right-decal-image.jpg');
+  background-size: cover;
+}
+
+/* Message */
+.message {
+  display: flex;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.message-box {
+  position: relative;
+  display: flex;
+}
+
+/* Right message box */
+.message-right {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.message-right .timestamp {
+  right: 5px;
+}
+
+.message-right .message-content .timestamp {
+  right: 0;
+  left: 0;
+  top: 100%;
+  position: absolute;
+}
+
+.message-right .message-content {
+  text-align: right;
+}
+
+.message-right .name {
+  text-align: right;
+  margin-left: auto;
+}
+
+.message-right .timestamp {
+  left: auto;
+  right: 0;
+}
+
+.message-right .message-content {
+  background-color: rgba(255, 255, 0, 0.2);
+}
+
+/* Left message box */
+.message-left {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.message-left .timestamp {
+  left: 5px;
+}
+
+.message-left .message-content .timestamp {
+  right: 0;
+  left: 0;
+  top: 100%;
+  position: absolute;
+}
+
+.message-left .message-content {
+  background-color: rgba(72, 255, 0, 0.2);
+}
+
+/* Profile Picture */
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-right: 2px;
+  border: 2px solid #3FCBFF;
+}
+
+.message-content {
+  background-color: rgba(255, 255, 51, 0.2);
+  border: 3px solid #0ff;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 5px #0ff;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  min-width: 250px;
+  word-wrap: break-word;
+  position: relative;
+  padding-bottom: 0.5em;
+}
+
+.message-content[augmented-ui="b-clip"] {
+  --aug-border: initial;
+  --aug-border-all: 3px;
+  --aug-border-color: #0ff;
+  --aug-clip-b1: 25px;
+  --aug-clip-b2: 50px;
+  --aug-b-extend1: 20%;
+}
+
+.name {
+  color: #FFFF33;
+  font-weight: bold;
+}
+
+.message-text {
+  margin: 0;
+}
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #ccc;
+  position: absolute;
+  bottom: 5px;
+}
+
+.message-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+/* Delete Button */
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(255, 0, 0, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+}
+
+.message-left .delete-btn {
+  left: 5px;
+}
+
+.message-right .delete-btn {
+  right: 5px;
+}
+
+.message:hover .delete-btn {
+  display: block;
+}
+
