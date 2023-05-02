@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
 body {
   font-family: 'IBM Plex Mono', monospace;
-  background-image: url('SRBG.jpg');
+  background-image: url('https://github.com/TonkatsuRa/Comlink-Thread/blob/main/SRBG.jpg?raw=true');
   background-size: cover;
   background-color: rgba(34, 34, 34, 0.7);
   color: #fff;
@@ -43,7 +43,7 @@ select {
   background-color: rgba(0, 255, 255, 0.1);
   border: 1px solid #FFFF00;
   border-radius: 5px;
-  padding: 5px;
+  padding: 3px;
   font-size: 1rem;
   color: #fff;
   outline: none;
@@ -56,47 +56,38 @@ input[type="file"] {
   margin-bottom: 10px;
 }
 
-/* Comlink container */
+/* Container */
 .comlink-container {
-  width: 600px;
-  border: 3px solid #FFFF00;
-  border-radius: 10px;
-  padding: 20px;
+  position: relative;
+  width: 100%;
+  max-width: 900px;
   margin: 0 auto;
-  backdrop-filter: blur(3px);
-}
-
-.comlink-container[augmented-ui="b-clip"] {
+  padding: 2rem;
+  background-color: rgba(0, 255, 255, 0.05); /* Adjust the alpha value (0.05) for transparency */
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  
   --aug-border: initial;
-  --aug-border-all: 3px;
-  --aug-border-color: #FFFF00;
-  --aug-clip-b1: 25px;
-  --aug-clip-b2: 50px;
-  --aug-b-extend1: 20%;
+  --aug-border-all: 5px;
+  --aug-border: #FFFF00; /* Color for augmented-ui border */
+  --aug-bg: linear-gradient(135deg, rgba(0, 255, 0, 0.01) 30%, rgba(0, 255, 255, 0.3) 100%); 
+  --aug-glow: rgba(0, 255, 255, 1); 
+  
+  --aug-inlay: initial;
+  --aug-inlay-all: 4px;
+  
+  --aug-clip-tl: initial;
+  --aug-clip-tr: initial;
+  --aug-clip-br: initial;
+  --aug-clip-br: initial;
+  --aug-clip-b-extend2: 50%;
 }
 
-/* Top decal */
-.comlink-container.top-aligned {
-  background-image: url('top.jpg');
-  background-size: cover;
-}
-
-/* Bottom decal */
-.comlink-container.bottom-aligned {
-  background-image: url('top.jpg');
-  background-size: cover;
-}
-
-/* Left decal */
-.comlink-container.left-aligned {
-  background-image: url('path/to/left-decal-image.jpg');
-  background-size: cover;
-}
-
-/* Right decal */
-.comlink-container.right-aligned {
-  background-image: url('path/to/right-decal-image.jpg');
-  background-size: cover;
+/* Augmented-ui styles */
+.comlink-container[data-augmented-ui] {
+  border: var(--aug-border) 10px solid;
+  background-image: var(--aug-bg) !important;
+  box-shadow: 0 0 10px var(--aug-glow) !important;
+  backdrop-filter: blur(5px);
 }
 
 /* Message */
@@ -143,7 +134,7 @@ input[type="file"] {
 }
 
 .message-right .message-content {
-  background-color: rgba(255, 255, 0, 0.2);
+  background-color: rgba(255, 165, 0, 0.2);
 }
 
 /* Left message box */
@@ -164,13 +155,11 @@ input[type="file"] {
 }
 
 .message-left .message-content {
-  background-color: rgba(72, 255, 0, 0.2);
+  background-color: rgba(255, 0, 0, 0.2);
 }
 
 /* Profile Picture */
 .profile-pic {
-  width: 50px;
-  height: 50px;
   border-radius: 5px;
   object-fit: cover;
   margin-right: 2px;
@@ -178,21 +167,20 @@ input[type="file"] {
 }
 
 .message-content {
-  background-color: rgba(255, 255, 51, 0.2);
-  border: 3px solid #0ff;
+  border: 2px solid #0ff;
   border-radius: 5px;
   padding: 10px;
-  box-shadow: 0 0 5px #0ff;
+  box-shadow: 0 0 10px #0ff;
   display: flex;
   flex-direction: column;
   max-width: 400px;
   min-width: 250px;
   word-wrap: break-word;
   position: relative;
-  padding-bottom: 0.5em;
+  padding-bottom: 0.1em;
 }
 
-.message-content[augmented-ui="b-clip"] {
+.message-content {
   --aug-border: initial;
   --aug-border-all: 3px;
   --aug-border-color: #0ff;
@@ -211,7 +199,7 @@ input[type="file"] {
 }
 
 .timestamp {
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   color: #ccc;
   position: absolute;
   bottom: 5px;
@@ -219,10 +207,9 @@ input[type="file"] {
 
 .message-info {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  position: relative;
+  margin-bottom: -15px;
+  position: flex;
 }
 
 /* Delete Button */
