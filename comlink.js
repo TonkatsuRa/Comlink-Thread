@@ -63,8 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
     messageBox.classList.add('message-box');
 
     const profilePic = document.createElement('img');
-    profilePic.classList.add('profile-pic');
-    profilePic.src = profilePicURL;
+	profilePic.classList.add('profile-pic');
+	profilePic.src = profilePicURL;
+	profilePic.style.width = '75px';
+	profilePic.style.height = '75px';
+
 
     if (alignment === 'left') {
       messageBox.appendChild(profilePic);
