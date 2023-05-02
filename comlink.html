@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="comlink.css">
-  <link rel="stylesheet" href="augmented-ui.min.css">
-  <link rel="stylesheet" href="augmented-ui.css">
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/augmented-ui@2/augmented-ui.min.css">
   <title>Shadowrun Comlink</title>
 </head>
 <body>
-  <div class="sidebar" augmented-ui="tl-clip br-clip">
+
+  <!-- Sidebar -->
+  <div class="sidebar" data-augmented-ui="border tl-clip br-clip">
     <h2>Create Message</h2>
-    <label for="alias-select">Alias:</label>
-    <select id="alias-select">
-      <option value="">Select User...</option>
-    </select>
-    <button id="add-user-btn">Add User</button>
     <label for="alias-input">User:</label>
     <input type="text" id="alias-input" placeholder="Enter Alias">
+          <button id="add-user-btn">Add User</button>  
+          <label for="alias-select">Alias:</label>
+      <select id="alias-select">
+      <option value="">Select User...</option>
+    </select>
     <label for="message-input">Message:</label>
     <textarea id="message-input" rows="4" placeholder="Enter Message"></textarea>
     <label for="alignment-select">Alignment:</label>
@@ -33,9 +33,16 @@
     <input type="text" id="timestamp-input" placeholder="yyyy-mm-dd hh:mm:ss">
     <button id="send-message-btn">Send Message</button>
   </div>
-  <div data-augmented-ui></div>
-  <div class="comlink-container" augmented-ui="tl-clip tr-clip bl-clip br-clip"></div>
-  <div data-augmented-ui="border">
+
+  <!-- Main content area -->
+  <div class="comlink-container" data-augmented-ui="tl-clip-x tr-2-clip-y br-rect-y bl-clip-x border">
+          <!-- Your message content -->
+        </div>
+      </div>
+      <!-- Other message-related content -->
+    </div>
+  </div>
+
   <script src="comlink.js"></script>
 </body>
 </html>
