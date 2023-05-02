@@ -9,13 +9,17 @@ body {
   display: flex;
 }
 
+.comlink-wrapper {
+  padding: 50px; /* Adjust the padding value as needed */
+}
+
 /* Container */
 .comlink-container {
   position: relative;
-  width: 100%;
+  width: 600px;
+  padding: 40px;
   max-width: 900px;
   margin: 0 auto;
-  padding: 2rem;
   background-color: rgba(0, 255, 255, 0.05); /* Adjust the alpha value (0.05) for transparency */
   border: var(--aug-border) 3px solid;
   background-image: var(--aug-bg);
@@ -25,7 +29,14 @@ body {
   --aug-border-all: 5px;
   --aug-border-bg: linear-gradient(135deg, rgba(255, 255, 0, 0.5) 30%, rgba(0, 255, 255, 0.8) 100%); 
   --aug-bg: linear-gradient(135deg, rgba(0, 255, 0, 0.01) 30%, rgba(0, 255, 255, 0.3) 100%); 
-  --aug-glow: rgba(0, 255, 255, 1); 
+  --aug-glow: rgba(0, 255, 255, 1);
+    --aug-clip-t1: initial;
+    --aug-clip-t2: initial;
+    --aug-clip-b1: initial;
+    --aug-clip-b2: initial;
+    --aug-t-extend1: 50%;
+    --aug-b-extend1: 50%;
+
 }
 
 #alias-select {
