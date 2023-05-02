@@ -9,6 +9,25 @@ body {
   display: flex;
 }
 
+/* Container */
+.comlink-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: rgba(0, 255, 255, 0.05); /* Adjust the alpha value (0.05) for transparency */
+  border: var(--aug-border) 3px solid;
+  background-image: var(--aug-bg);
+  box-shadow: 0 0 10px var(--aug-glow);
+  backdrop-filter: blur(5px);
+  --aug-border: initial;
+  --aug-border-all: 5px;
+  --aug-border-bg: linear-gradient(135deg, rgba(255, 255, 0, 0.5) 30%, rgba(0, 255, 255, 0.8) 100%); 
+  --aug-bg: linear-gradient(135deg, rgba(0, 255, 0, 0.01) 30%, rgba(0, 255, 255, 0.3) 100%); 
+  --aug-glow: rgba(0, 255, 255, 1); 
+}
+
 #alias-select {
     padding: 5px;
     color: #FFF;
@@ -29,12 +48,13 @@ select option {
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(5px);
+  --aug-border-bg: linear-gradient(135deg, rgba(255, 255, 0, 0.5) 30%, rgba(0, 255, 255, 0.8) 100%); 
 }
 
 .sidebar h2 {
   margin: 0 0 5px;
   font-size: 1.5rem;
-  color: #0ff;
+  color: #FFFF00;
 }
 
 input[type="text"],
@@ -62,39 +82,7 @@ input[type="file"] {
   margin-bottom: 10px;
 }
 
-/* Container */
-.comlink-container {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: rgba(0, 255, 255, 0.05); /* Adjust the alpha value (0.05) for transparency */
-  border: 1px solid rgba(0, 255, 255, 0.5);
-  
-  --aug-border: initial;
-  --aug-border-all: 5px;
-  --aug-border: #FFFF00; /* Color for augmented-ui border */
-  --aug-bg: linear-gradient(135deg, rgba(0, 255, 0, 0.01) 30%, rgba(0, 255, 255, 0.3) 100%); 
-  --aug-glow: rgba(0, 255, 255, 1); 
-  
-  --aug-inlay: initial;
-  --aug-inlay-all: 4px;
-  
-  --aug-clip-tl: initial;
-  --aug-clip-tr: initial;
-  --aug-clip-br: initial;
-  --aug-clip-br: initial;
-  --aug-clip-b-extend2: 50%;
-}
 
-/* Augmented-ui styles */
-.comlink-container[data-augmented-ui] {
-  border: var(--aug-border) 10px solid;
-  background-image: var(--aug-bg) !important;
-  box-shadow: 0 0 10px var(--aug-glow) !important;
-  backdrop-filter: blur(5px);
-}
 
 /* Message */
 .message {
