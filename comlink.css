@@ -9,6 +9,19 @@ body {
   display: flex;
 }
 
+#alias-select {
+    padding: 5px;
+    color: #FFF;
+}
+
+select option {
+  margin: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+
 /* Sidebar */
 .sidebar {
   width: 350px;
@@ -19,22 +32,9 @@ body {
 }
 
 .sidebar h2 {
-  margin: 0 0 20px;
+  margin: 0 0 5px;
   font-size: 1.5rem;
   color: #0ff;
-}
-
-.aui-button {
-  --button-color: #0ff;
-  --button-background: #000;
-  padding: 8px 12px;
-  font-size: 1rem;
-  margin-bottom: 10px;
-}
-
-.aui-button:hover {
-  --button-color: #FFFF00;
-  --button-background: #F;
 }
 
 input[type="text"],
@@ -49,6 +49,12 @@ select {
   outline: none;
   width: 100%;
   margin-bottom: 10px;
+
+}
+input,textarea,file,select {
+    width: 90%;
+    color: #FFF; /* HERE */
+    option-color: rgba(0, 255, 255, 0.1);
 }
 
 input[type="file"] {
