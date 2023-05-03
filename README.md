@@ -1,5 +1,5 @@
 # Comlink-Thread
-https://tonkatsura.github.io/Comlink-Thread/comlink.html
+If you want to give it a try: https://tonkatsura.github.io/Comlink-Thread/comlink.html
 
 Small tool for my Shadowrun campaign to create handouts in the style of a comlink message
 
