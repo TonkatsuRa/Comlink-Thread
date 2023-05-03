@@ -94,6 +94,7 @@ input[type="file"] {
 }
 
 .user-selection {
+  position: relative;
   display: flex;
   align-items: center;
   margin-top: 15px;
@@ -111,6 +112,25 @@ input[type="file"] {
   border-radius: 50%;
   cursor: pointer;
   display: none;
+}
+
+.user-delete-btn {
+  position: center;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFF00;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin-left: 4px;
+  margin-bottom: 10px;
 }
 
 .user-delete-btn:hover {
@@ -151,7 +171,7 @@ input[type="file"] {
 /* Message */
 .message {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   position: relative;
 }
 
@@ -255,6 +275,11 @@ input[type="file"] {
   font-size: 1.1rem;
   color: #FFFF00;
   margin-bottom: 2px;
+  font-weight: bold;
+}
+
+.message-info{
+  line-height: 12px; 
 }
 
 .timestamp {
