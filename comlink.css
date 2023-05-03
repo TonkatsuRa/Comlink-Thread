@@ -172,8 +172,6 @@ input[type="file"] {
 }
 
 .message-content {
-  border: 2px solid #0ff;
-  border-radius: 5px;
   padding: 10px;
   box-shadow: 0 0 10px #0ff;
   display: flex;
@@ -183,19 +181,23 @@ input[type="file"] {
   word-wrap: break-word;
   position: relative;
   padding-bottom: 0.1em;
+  --aug-border: initial;
+  --aug-border-all: 1px;
+  --aug-border-bg: #3FCBFF;
+  --aug-tr-extend1: 2.5%;
+  --aug-tr-extend2: 0%;
+  --aug-tr-inset1: 0%;
+  --aug-tr-inset2: 0%;
+  --aug-tl-extend1: 0%;
+  --aug-tl-extend2: 2.5%;
+  --aug-tl-inset1: 0%;
+  --aug-tl-inset2: 0%;
 }
 
-.message-content {
-  --aug-border: initial;
-  --aug-border-all: 3px;
-  --aug-border-color: #0ff;
-  --aug-clip-b1: 25px;
-  --aug-clip-b2: 50px;
-  --aug-b-extend1: 20%;
-}
 
 .name {
-  color: #FFFF33;
+  color: rgb(255 255 0 /0.8);
+  text-shadow: 0 0 12px rebeccapurple;
   font-weight: bold;
 }
 
