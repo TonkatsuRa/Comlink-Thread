@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
       userInputElement.value = '';
       profilePicInput.value = '';
     }
+      if (userName && !getUserByName(userName)) {
+    users.push({ name: userName, profilePicture: profilePicURL });
+    updateUserList();
+    saveUsers(); // Save the users array to localStorage
+    userInputElement.value = '';
+    profilePicInput.value = '';
+  }
   });
 
   function updateUserList() {
@@ -76,8 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageContent = document.createElement('div');
     messageContent.classList.add('message-content');
     // Add the augmented-ui attribute
-    messageContent.setAttribute('augmented-ui', 'b-clip');
-
+    if (alignment === 'left') {messageContent.setAttribute('data-augmented-ui', 'bl-clip tr-2-clip-x');
+                              }
+        if (alignment === 'right') {messageContent.setAttribute('data-augmented-ui', 'br-clip tl-2-clip-x');
+                              }
     const messageInfo = document.createElement('div');
     messageInfo.classList.add('message-info');
 
@@ -118,3 +127,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.comlink-container').appendChild(message);
   }
 });
+
+
+// Save Users Function //
+function saveUsers() {
+  localStorage.setItem('users', JSON.stringify(users));
+}
+
+function loadUsers() {
+  const storedUsers = localStorage.getItem('users');
+  if (storedUsers) {
+    users = JSON.parse(storedUsers);
+    updateUserList();
+  }
+}
+
+// ====== END OF THE SCRIPT ===== //
+loadUsers();
