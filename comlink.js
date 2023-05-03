@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const aliases = document.querySelector('#alias-select');
   const addUserBtn = document.querySelector('#add-user-btn');
+  const deleteUserBtn = document.querySelector('#delete-user-btn');
   const userInputElement = document.querySelector('#alias-input');
   const messageInputElement = document.querySelector('#message-input');
   const alignmentSelect = document.querySelector('#alignment-select');
@@ -8,24 +9,43 @@ document.addEventListener('DOMContentLoaded', () => {
   const sendMessageBtn = document.querySelector('#send-message-btn');
   const timestampInput = document.querySelector('#timestamp-input');
 
-  const users = [];
+  let users = [];
 
   addUserBtn.addEventListener('click', () => {
     const userName = userInputElement.value.trim();
-    const profilePicURL = profilePicInput.files[0] ? URL.createObjectURL(profilePicInput.files[0]) : '';
+    const file = profilePicInput.files[0];
+
     if (userName && !getUserByName(userName)) {
-      users.push({ name: userName, profilePicture: profilePicURL });
-      updateUserList();
-      userInputElement.value = '';
-      profilePicInput.value = '';
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          const profilePicURL = reader.result;
+          users.push({ name: userName, profilePicture: profilePicURL });
+          updateUserList();
+          saveUsers(); // Save the users array to localStorage
+          userInputElement.value = '';
+          profilePicInput.value = '';
+        }
+        reader.readAsDataURL(file);
+      } else {
+        users.push({ name: userName, profilePicture: '' });
+        updateUserList();
+        saveUsers(); // Save the users array to localStorage
+        userInputElement.value = '';
+        profilePicInput.value = '';
+      }
     }
-      if (userName && !getUserByName(userName)) {
-    users.push({ name: userName, profilePicture: profilePicURL });
-    updateUserList();
-    saveUsers(); // Save the users array to localStorage
-    userInputElement.value = '';
-    profilePicInput.value = '';
-  }
+  });
+
+  deleteUserBtn.addEventListener('click', () => {
+    const userName = aliases.value;
+    const userIndex = users.findIndex((user) => user.name === userName);
+
+    if (userIndex > -1) {
+      users.splice(userIndex, 1);
+      updateUserList();
+      saveUsers();
+    }
   });
 
   function updateUserList() {
@@ -70,64 +90,62 @@ document.addEventListener('DOMContentLoaded', () => {
     messageBox.classList.add('message-box');
 
     const profilePic = document.createElement('img');
-	profilePic.classList.add('profile-pic');
-	profilePic.src = profilePicURL;
-	profilePic.style.width = '75px';
-	profilePic.style.height = '75px';
+    profilePic.classList.add('profile-pic');
+    profilePic.src = profilePicURL;
+    profilePic.style.width = '75px';
+profilePic.style.height = '75px';
 
+if (alignment === 'left') {
+  messageBox.appendChild(profilePic);
+}
 
-    if (alignment === 'left') {
-      messageBox.appendChild(profilePic);
-    }
+const messageContent = document.createElement('div');
+messageContent.classList.add('message-content');
+if (alignment === 'left') {
+  messageContent.setAttribute('data-augmented-ui', 'bl-clip tr-2-clip-x');
+}
+if (alignment === 'right') {
+  messageContent.setAttribute('data-augmented-ui', 'br-clip tl-2-clip-x');
+}
+const messageInfo = document.createElement('div');
+messageInfo.classList.add('message-info');
 
-    const messageContent = document.createElement('div');
-    messageContent.classList.add('message-content');
-    // Add the augmented-ui attribute
-    if (alignment === 'left') {messageContent.setAttribute('data-augmented-ui', 'bl-clip tr-2-clip-x');
-                              }
-        if (alignment === 'right') {messageContent.setAttribute('data-augmented-ui', 'br-clip tl-2-clip-x');
-                              }
-    const messageInfo = document.createElement('div');
-    messageInfo.classList.add('message-info');
+const userName = document.createElement('span');
+userName.classList.add('name');
+userName.textContent = name;
 
-    const userName = document.createElement('span');
-    userName.classList.add('name');
-    userName.textContent = name;
+const timestamp = document.createElement('span');
+timestamp.classList.add('timestamp');
+timestamp.textContent = timestampText || new Date().toLocaleTimeString();
 
-    const timestamp = document.createElement('span');
-    timestamp.classList.add('timestamp');
-    timestamp.textContent = timestampText || new Date().toLocaleTimeString();
+const messageText = document.createElement('p');
+messageText.textContent = text;
 
-    const messageText = document.createElement('p');
-    messageText.textContent = text;
+messageInfo.appendChild(userName);
+messageInfo.appendChild(timestamp);
 
-    messageInfo.appendChild(userName);
-    messageInfo.appendChild(timestamp);
+messageContent.appendChild(messageInfo);
+messageContent.appendChild(messageText);
 
-    messageContent.appendChild(messageInfo);
-    messageContent.appendChild(messageText);
+messageBox.appendChild(messageContent);
 
-    messageBox.appendChild(messageContent);
+if (alignment === 'right') {
+  messageBox.appendChild(profilePic);
+}
 
-    if (alignment === 'right') {
-      messageBox.appendChild(profilePic);
-    }
+message.appendChild(messageBox);
 
-    message.appendChild(messageBox);
+const deleteBtn = document.createElement('button');
+deleteBtn.classList.add('delete-btn');
+deleteBtn.textContent = 'x';
+deleteBtn.onclick = () => {
+  message.remove();
+};
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.classList.add('delete-btn');
-    deleteBtn.textContent = 'x';
-    deleteBtn.onclick = () => {
-      message.remove();
-    };
+messageBox.appendChild(deleteBtn);
 
-    messageBox.appendChild(deleteBtn);
-
-    document.querySelector('.comlink-container').appendChild(message);
-  }
-});
-
+document.querySelector('.comlink-container').appendChild(message);
+}
 
 // Save Users Function //
 function saveUsers() {
@@ -144,3 +162,5 @@ function loadUsers() {
 
 // ====== END OF THE SCRIPT ===== //
 loadUsers();
+});
+
