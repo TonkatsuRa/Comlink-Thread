@@ -93,74 +93,100 @@ document.addEventListener('DOMContentLoaded', () => {
     profilePic.classList.add('profile-pic');
     profilePic.src = profilePicURL;
     profilePic.style.width = '75px';
-profilePic.style.height = '75px';
+    profilePic.style.height = '75px';
 
-if (alignment === 'left') {
-  messageBox.appendChild(profilePic);
-}
+    const arrowContainer = document.createElement('div');
+    arrowContainer.classList.add('arrow-container', `arrow-container-${alignment}`);
 
-const messageContent = document.createElement('div');
-messageContent.classList.add('message-content');
-if (alignment === 'left') {
-  messageContent.setAttribute('data-augmented-ui', 'bl-clip tr-2-clip-x');
-}
-if (alignment === 'right') {
-  messageContent.setAttribute('data-augmented-ui', 'br-clip tl-2-clip-x');
-}
-const messageInfo = document.createElement('div');
-messageInfo.classList.add('message-info');
+    const moveUpBtn = document.createElement('button');
+    moveUpBtn.classList.add('move-up-btn');
+    moveUpBtn.textContent = '↑';
+    moveUpBtn.onclick = () => {
+      if (message.previousElementSibling) {
+        message.parentElement.insertBefore(message, message.previousElementSibling);
+      }
+    };
 
-const userName = document.createElement('span');
-userName.classList.add('name');
-userName.textContent = name;
+    const moveDownBtn = document.createElement('button');
+    moveDownBtn.classList.add('move-down-btn');
+    moveDownBtn.textContent = '↓';
+    moveDownBtn.onclick = () => {
+      if (message.nextElementSibling) {
+        message.parentElement.insertBefore(message.nextElementSibling, message);
+      }
+    };
 
-const timestamp = document.createElement('span');
-timestamp.classList.add('timestamp');
-timestamp.textContent = timestampText || new Date().toLocaleTimeString();
+    arrowContainer.appendChild(moveUpBtn);
+    arrowContainer.appendChild(moveDownBtn);
 
-const messageText = document.createElement('p');
-messageText.textContent = text;
+    if (alignment === 'left') {
+      messageBox.appendChild(arrowContainer);
+      messageBox.appendChild(profilePic);
+    }
 
-messageInfo.appendChild(userName);
-messageInfo.appendChild(timestamp);
+    const messageContent = document.createElement('div');
+    messageContent.classList.add('message-content');
+    if (alignment === 'left') {
+      messageContent.setAttribute('data-augmented-ui', 'bl-clip tr-2-clip-x');
+    }
+    if (alignment === 'right') {
+      messageContent.setAttribute('data-augmented-ui', 'br-clip tl-2-clip-x');
+    }
 
-messageContent.appendChild(messageInfo);
-messageContent.appendChild(messageText);
+    const messageInfo = document.createElement('div');
+    messageInfo.classList.add('message-info');
 
-messageBox.appendChild(messageContent);
+    const userName = document.createElement('span');
+    userName.classList.add('name');
+    userName.textContent = name;
 
-if (alignment === 'right') {
-  messageBox.appendChild(profilePic);
-}
+    const timestamp = document.createElement('span');
+    timestamp.classList.add('timestamp');
+    timestamp.textContent = timestampText || new Date().toLocaleTimeString();
 
-message.appendChild(messageBox);
+    const messageText = document.createElement('p');
+    messageText.textContent = text;
 
-const deleteBtn = document.createElement('button');
-deleteBtn.classList.add('delete-btn');
-deleteBtn.textContent = 'x';
-deleteBtn.onclick = () => {
-  message.remove();
-};
+    messageInfo.appendChild(userName);
+    messageInfo.appendChild(timestamp);
 
-messageBox.appendChild(deleteBtn);
+    messageContent.appendChild(messageInfo);
+    messageContent.appendChild(messageText);
 
-document.querySelector('.comlink-container').appendChild(message);
-}
+    messageBox.appendChild(messageContent);
 
-// Save Users Function //
-function saveUsers() {
-  localStorage.setItem('users', JSON.stringify(users));
-}
+    if (alignment === 'right') {
+      messageBox.appendChild(profilePic);
+      messageBox.appendChild(arrowContainer);
+    }
 
-function loadUsers() {
-  const storedUsers = localStorage.getItem('users');
-  if (storedUsers) {
-    users = JSON.parse(storedUsers);
-    updateUserList();
+    message.appendChild(messageBox);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.textContent = 'x';
+    deleteBtn.onclick = () => {
+      message.remove();
+    };
+
+    messageBox.appendChild(deleteBtn);
+
+    document.querySelector('.comlink-container').appendChild(message);
   }
-}
 
-// ====== END OF THE SCRIPT ===== //
-loadUsers();
+  // Save Users Function //
+  function saveUsers() {
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+
+  function loadUsers() {
+    const storedUsers = localStorage.getItem('users');
+    if (storedUsers) {
+      users = JSON.parse(storedUsers);
+      updateUserList();
+    }
+  }
+
+  // ====== END OF THE SCRIPT ===== //
+  loadUsers();
 });
-
