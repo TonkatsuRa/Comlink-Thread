@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -20,11 +20,16 @@
     <input type="text" id="alias-input" placeholder="Enter Alias">
     <label for="profile-pic-input">Profile Picture:</label>
     <input type="file" id="profile-pic-input" accept="image/*">
-          <button id="add-user-btn">Add User</button>  
-          <label for="alias-select">Alias:</label>
+    <button id="add-user-btn">Add User</button>
+
+    <div class="user-selection">
+      <label for="alias-select">Alias:</label>
       <select id="alias-select">
-      <option value="">Select User...</option>
-    </select>
+        <option value="">Select User...</option>
+      </select>
+      <button id="delete-user-btn" class="user-delete-btn">x</button>
+    </div>
+    
     <label for="alignment-select">Message Alignment:</label>
     <select id="alignment-select">
       <option value="left">Left</option>
@@ -39,11 +44,7 @@
 
   <!-- Main content area -->
   <div class="comlink-container" data-augmented-ui="tl-clip tr-clip br-clip bl-clip border">
-          <!-- Your message content -->
-        </div>
-      </div>
-      <!-- Other message-related content -->
-    </div>
+    <!-- Your message content -->
   </div>
 
   <script src="comlink.js"></script>
