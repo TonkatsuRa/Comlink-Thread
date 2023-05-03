@@ -3,4 +3,13 @@ Small tool for my Shadowrun campaign to create handouts in the style of a comlin
 
 Credit for augmented-ui goes to propjockey (https://augmented-ui.com)
 
+Features I want to implement:
+- Saving users in local browser storage (done)
+- Saving profile pictures in local browser storage (done)
+- Adding a delete button for Alias (done)
+- Being able to move messages up and down
+- Being able to post images in the chat thread
+- Being able to write "system messages" without a chat bubble like in the 80's sci-fi computer terminals
+- Being able to export the chat thread with the full layout (kinda like a long screenshot)
+
 https://tonkatsura.github.io/Comlink-Thread/comlink.html
