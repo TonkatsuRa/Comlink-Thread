@@ -14,6 +14,7 @@ body {
 }
 
 /* Container */
+
 .comlink-container {
   position: relative;
   width: 600px;
@@ -36,8 +37,30 @@ body {
     --aug-clip-b2: initial;
     --aug-t-extend1: 50%;
     --aug-b-extend1: 50%;
-
 }
+
+.admin-message .message-content::before,
+.admin-message .message-content::after {
+  display: none !important;
+}
+
+.admin-message .message-box {
+  padding: 0;
+  margin: 0;
+}
+
+.admin-message .message-content {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #0dff00 !important;
+  text-shadow: #000000 3px 0 10px;
+      -webkit-mask-image: repeating-linear-gradient(black, black 2px, transparent 3px);
+  animation: retro-future-tv-lines linear infinite;
+    animation-duration: 4s; 
+}
+
+
 
 #alias-select {
     padding: 5px;
@@ -242,6 +265,9 @@ input[type="file"] {
   object-fit: cover;
   margin-right: 2px;
   border: 2px solid #3FCBFF;
+      -webkit-mask-image: repeating-linear-gradient(black, black 2px, transparent 3px);
+  animation: retro-future-tv-lines linear infinite;
+    animation-duration: 4s; 
 }
 
 .message-content {
@@ -271,11 +297,13 @@ input[type="file"] {
   --aug-bl1: 0.1in;
 }
 
-.name {
-  font-size: 1.1rem;
-  color: #FFFF00;
-  margin-bottom: 2px;
-  font-weight: bold;
+
+.name{
+    color: #FFFF00;
+    filter: drop-shadow(0px 0px 0.125rem white);
+    -webkit-mask-image: repeating-linear-gradient(black, black 2px, transparent 3px);
+  animation: retro-future-tv-lines linear infinite;
+    animation-duration: 4s; 
 }
 
 .message-info{
@@ -286,7 +314,7 @@ input[type="file"] {
   position: absolute;
   bottom: 2px;
   font-size: 0.8rem;
-  color: #FFF;
+  color: #FFFF00;
   opacity: 0.8;
 }
 
@@ -307,5 +335,15 @@ input[type="file"] {
   select {
     width: 100%;
   }
+}
+
+/* Admin Message */
+.admin-message {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
+  color: #0f0; /* Green text color similar to old computer terminals */
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
 }
 
