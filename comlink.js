@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sendMessageBtn = document.querySelector('#send-message-btn');
   const timestampInput = document.querySelector('#timestamp-input');
 
-  let users = [{ name: 'Admin', profilePicture: '' }];
+  let users = JSON.parse(localStorage.getItem('users')) || [{ name: 'Admin', profilePicture: '' }];
 
   addUserBtn.addEventListener('click', () => {
     const userName = userInputElement.value.trim();
@@ -197,14 +197,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function loadUsers() {
-    const storedUsers = localStorage.getItem('users');
-    if (storedUsers) {
-      users = JSON.parse(storedUsers);
-      updateUserList();
-    }
+    updateUserList();
   }
 
   // ====== END OF THE SCRIPT ===== //
   loadUsers();
 });
-
