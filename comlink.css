@@ -17,7 +17,7 @@ body {
 
 .comlink-container {
   position: relative;
-  width: 600px;
+  width: 800px;
   padding: 40px;
   max-width: 900px;
   margin: 0 auto;
@@ -275,8 +275,8 @@ input[type="file"] {
   box-shadow: 0 0 10px #0ff;
   display: flex;
   flex-direction: column;
-  max-width: 400px;
-  min-width: 250px;
+  max-width: 550px;
+  min-width: 350px;
   word-wrap: break-word;
   position: relative;
   padding-bottom: 0.1em;
