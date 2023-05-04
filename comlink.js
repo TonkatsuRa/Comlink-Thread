@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sendMessageBtn = document.querySelector('#send-message-btn');
   const timestampInput = document.querySelector('#timestamp-input');
 
-  let users = [];
+  let users = [{ name: 'Admin', profilePicture: '' }];
 
   addUserBtn.addEventListener('click', () => {
     const userName = userInputElement.value.trim();
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userName = aliases.value;
     const userIndex = users.findIndex((user) => user.name === userName);
 
-    if (userIndex > -1) {
+    if (userIndex > -1 && userName !== 'Admin') {
       users.splice(userIndex, 1);
       updateUserList();
       saveUsers();
@@ -121,7 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (alignment === 'left') {
       messageBox.appendChild(arrowContainer);
-      messageBox.appendChild(profilePic);
+      if (name !== 'Admin') {
+        messageBox.appendChild(profilePic);
+      }
     }
 
     const messageContent = document.createElement('div');
@@ -133,30 +135,45 @@ document.addEventListener('DOMContentLoaded', () => {
       messageContent.setAttribute('data-augmented-ui', 'br-clip tl-2-clip-x');
     }
 
-    const messageInfo = document.createElement('div');
-    messageInfo.classList.add('message-info');
+    if (name !== 'Admin') {
+      const messageInfo = document.createElement('div');
+      messageInfo.classList.add('message-info');
 
-    const userName = document.createElement('span');
-    userName.classList.add('name');
-    userName.textContent = name;
+      const userName = document.createElement('span');
+      userName.classList.add('name');
+      userName.textContent = name;
 
-    const timestamp = document.createElement('span');
-    timestamp.classList.add('timestamp');
-    timestamp.textContent = timestampText || new Date().toLocaleTimeString();
+      const timestamp = document.createElement('span');
+      timestamp.classList.add('timestamp');
+      timestamp.textContent = timestampText || new Date().toLocaleTimeString();
 
-    const messageText = document.createElement('p');
-    messageText.textContent = text;
+      const messageText = document.createElement('p');
+      messageText.textContent = text;
 
-    messageInfo.appendChild(userName);
-    messageInfo.appendChild(timestamp);
+      messageInfo.appendChild(userName);
+      messageInfo.appendChild(timestamp);
 
-    messageContent.appendChild(messageInfo);
-    messageContent.appendChild(messageText);
+      messageContent.appendChild(messageInfo);
+      messageContent.appendChild(messageText);
+    } else {
+      messageContent.style.background = 'transparent';
+      messageContent.style.border = 'none';
+      messageContent.style.boxShadow = 'none';
+      messageContent.style.outline = 'none';
+      messageContent.style.borderColor = 'transparent';
+      messageContent.style.color = '#000'; /* Reset text color to black */
+      messageContent.setAttribute('data-augmented-ui', 'none');
+      messageContent.textContent = text;
+      message.classList.add('admin-message');
+      messageContent.classList.add('admin-message-content');
+    }
 
     messageBox.appendChild(messageContent);
 
     if (alignment === 'right') {
-      messageBox.appendChild(profilePic);
+      if (name !== 'Admin') {
+        messageBox.appendChild(profilePic);
+      }
       messageBox.appendChild(arrowContainer);
     }
 
@@ -190,3 +207,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // ====== END OF THE SCRIPT ===== //
   loadUsers();
 });
+
