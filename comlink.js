@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const messageText = messageInputElement.value.trim();
+    const messageText = messageInputElement.value.trim().replace(/\n/g, '<br>');
     const alignment = alignmentSelect.value;
     const profilePicURL = user.profilePicture;
     const timestampText = timestampInput.value;
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
       timestamp.textContent = timestampText || new Date().toLocaleTimeString();
 
       const messageText = document.createElement('p');
-      messageText.textContent = text;
+      messageText.innerHTML = text;
 
       messageInfo.appendChild(userName);
       messageInfo.appendChild(timestamp);
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
       messageContent.style.borderColor = 'transparent';
       messageContent.style.color = '#000'; /* Reset text color to black */
       messageContent.setAttribute('data-augmented-ui', 'none');
-      messageContent.textContent = text;
+      messageContent.innerHTML = text;
       message.classList.add('admin-message');
       messageContent.classList.add('admin-message-content');
     }
