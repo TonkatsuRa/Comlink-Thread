@@ -1,5 +1,6 @@
 # Comlink-Thread
 If you want to give it a try: https://tonkatsura.github.io/Comlink-Thread/comlink.html
+(You can add the secret "Admin" user by hand and then write messages without a message box)
 
 Small tool for my Shadowrun campaign to create handouts in the style of a comlink message
 
