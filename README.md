@@ -8,6 +8,7 @@ Credit for augmented-ui goes to propjockey (https://augmented-ui.com)
 ![image](https://user-images.githubusercontent.com/115587388/236695609-c1ea806c-49f6-47fa-a5e1-634ceb2eecd5.png)
 
 Features I want to implement:
+- DONE // a delete button for messages on hover over the message
 - DONE // Saving users in local browser storage
 - DONE // Saving profile pictures in local browser storage
 - DONE // Adding a delete button for Alias
