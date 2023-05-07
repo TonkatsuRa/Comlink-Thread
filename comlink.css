@@ -44,6 +44,11 @@ body {
   display: none !important;
 }
 
+.message-left .message-content,
+.message-right .message-content {
+  color: #fff !important;
+}
+
 .admin-message .message-box {
   padding: 0;
   margin: 0;
@@ -80,6 +85,7 @@ select option {
   width: 350px;
   padding: 20px;
   display: flex;
+  color: #FFF;
   flex-direction: column;
   backdrop-filter: blur(5px);
   --aug-border-bg: linear-gradient(135deg, rgba(255, 255, 0, 0.5) 30%, rgba(0, 255, 255, 0.8) 100%); 
@@ -118,7 +124,7 @@ input[type="file"] {
 
 .user-selection {
   position: relative;
-  display: flex;
+  display: absolute;
   align-items: center;
   margin-top: 15px;
 }
@@ -144,7 +150,7 @@ input[type="file"] {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background-color: #FFFF00;
+  background-color: rgba(255, 255, 0, 0.75);
   color: black;
   border: none;
   cursor: pointer;
@@ -337,6 +343,19 @@ input[type="file"] {
   }
 }
 
+/* BBcode Buttons */
+.btn-dark {
+  background-color: rgba(0, 255, 255, 0.1) !important;
+  color: #FFFF00 !important;
+  font-size: 0.7rem !important;
+  padding: 0.5rem 0.55rem !important;
+}
+
+.btn-dark:hover {
+  background-color: rgba(255, 255, 0, 0.3) !important;
+}
+
+
 /* Admin Message */
 .admin-message {
   font-family: 'IBM Plex Mono', monospace;
@@ -346,4 +365,168 @@ input[type="file"] {
   border: none;
   margin-left: 10px;
 }
+
+ChatGPT
+
+Your CSS code is quite extensive, and I see you've set the default color for text to white using color: #fff;. However, the message text is being overridden by the message-content CSS rule. To change the message text color to white, update the .message-content rule in your CSS code as follows:
+
+Replace this line:
+
+css
+
+color: #0dff00 !important;
+
+with:
+
+css
+
+color: #fff !important;
+
+Now, the text color for the messages should appear as white.
+User
+This part is for the admin message and should stay green. I need the left and right message texts to be white
+ChatGPT
+
+Apologies for the confusion. In that case, add the following CSS rule to change the text color for both left and right messages to white:
+
+css
+
+.message-left .message-content,
+.message-right .message-content {
+  color: #fff !important;
+}
+
+Add this rule to your CSS code, and it should make the text color of both left and right messages white.
+User
+okay that worked but why is the BBcode editor now gone ?
+ChatGPT
+
+I apologize for any confusion. Based on the provided HTML and CSS code, there is no BBCode editor present. It seems that you may not have provided the complete HTML code or the BBCode editor is in another part of the code.
+
+If you could provide the relevant HTML and JavaScript code for the BBCode editor, I'd be happy to help you with that.
+User
+this is my HTML code:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="comlink.css">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.3.3/dist/html2canvas.min.js"></script>
+  <script src="https://unpkg.com/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
+  <title>Shadowrun Comlink</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar" data-augmented-ui="border tl-clip br-clip">
+    <h2>Create Message</h2>
+    <label for="alias-input">User:</label>
+    <input type="text" id="alias-input" placeholder="Enter Alias">
+    <label for="profile-pic-input">Profile Picture:</label>
+    <input type="file" id="profile-pic-input" accept="image/*">
+    <button id="add-user-btn">Add User</button>
+
+    <div class="user-selection">
+      <label for="alias-select">Alias:</label>
+      <select id="alias-select">
+        <option value="">Select User...</option>
+        <option value="Admin">Admin</option> <!-- Add Admin as an option -->
+      </select>
+      <button id="delete-user-btn" class="user-delete-btn">x</button>
+    </div>
+    
+    <label for="alignment-select">Message Alignment:</label>
+    <select id="alignment-select">
+      <option value="left">Left</option>
+      <option value="right">Right</option>
+    </select>
+    <label for="message-input">Message:</label>
+    <textarea name="content" class="editor" data-editor></textarea>
+    <label for="timestamp-input">Date & Time:</label>
+<input type="text" id="timestamp-input" placeholder="yyyy-mm-dd hh:mm:ss">
+<button id="send-message-btn">Send Message</button>
+</div>
+
+<!-- Main content area -->
+<div class="comlink-container" data-augmented-ui="tl-clip tr-clip br-clip bl-clip border">
+  <!-- Your message content -->
+</div>
+
+<script src="comlink.js"></script>
+
+</body>
+</html>
+
+ChatGPT
+
+Thank you for providing the HTML code. I see that you are using Bootstrap and Font Awesome for the styling and the jQuery library for JavaScript. The BBCode editor might not be included in your project. To add a simple BBCode editor, you can use the following steps:
+
+    Add the following CSS to your comlink.css file to style the BBCode buttons:
+
+css
+
+.bbcode-button {
+  background-color: transparent;
+  border: none;
+  color: #FFFF00;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 5px;
+  padding: 0;
+}
+
+.bbcode-button:hover {
+  color: #FFAA00;
+}
+
+    Add the BBCode buttons in the HTML file just below the </textarea> element:
+
+html
+
+<div class="bbcode-buttons">
+  <button class="bbcode-button" data-tag="b">B</button>
+  <button class="bbcode-button" data-tag="i">I</button>
+  <button class="bbcode-button" data-tag="u">U</button>
+  <button class="bbcode-button" data-tag="url">URL</button>
+  <button class="bbcode-button" data-tag="img">IMG</button>
+</div>
+
+    Add the following JavaScript code to the comlink.js file to handle the button clicks and insert the BBCode tags:
+
+javascript
+
+$(document).ready(function () {
+  $(".bbcode-button").on("click", function () {
+    const tag = $(this).data("tag");
+    const textarea = $(".editor");
+
+    // Get the cursor position in the textarea
+    const startPos = textarea.prop("selectionStart");
+    const endPos = textarea.prop("selectionEnd");
+
+    // Wrap the selected text with BBCode tags
+    const beforeTag = `[${tag}]`;
+    const afterTag = `[/${tag}]`;
+    const selectedText = textarea.val().substring(startPos, endPos);
+
+    // Insert the new text with BBCode tags
+    textarea.val(
+      textarea.val().substring(0, startPos) +
+        beforeTag +
+        selectedText +
+        afterTag +
+        textarea.val().substring(endPos)
+    );
+
+    // Set the new cursor position
+    textarea.prop("selectionStart", startPos + beforeTag.length);
+    textarea.prop("selectionEnd", endPos + beforeTag.length);
+  });
+});
+
 
