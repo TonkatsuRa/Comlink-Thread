@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addUserBtn = document.querySelector('#add-user-btn');
   const deleteUserBtn = document.querySelector('#delete-user-btn');
   const userInputElement = document.querySelector('#alias-input');
-  const messageInputElement = document.querySelector('[data-editor]');
+const messageInputElement = document.querySelector('.editor');
   const alignmentSelect = document.querySelector('#alignment-select');
   const profilePicInput = document.querySelector('#profile-pic-input');
   const sendMessageBtn = document.querySelector('#send-message-btn');
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const profilePicURL = reader.result;
           users.push({ name: userName, profilePicture: profilePicURL });
           updateUserList();
-          saveUsers();
+          saveUsers(); // Save the users array to localStorage
           userInputElement.value = '';
           profilePicInput.value = '';
         }
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         users.push({ name: userName, profilePicture: '' });
         updateUserList();
-        saveUsers();
+        saveUsers(); // Save the users array to localStorage
         userInputElement.value = '';
         profilePicInput.value = '';
       }
@@ -62,10 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return users.find((user) => user.name === name);
   }
 
-  function saveUsers() {
-    localStorage.setItem('users', JSON.stringify(users));
-  }
-
   sendMessageBtn.addEventListener('click', () => {
     const userName = aliases.value;
     const user = getUserByName(userName);
@@ -74,44 +70,42 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-const messageText = bbCodeToHTML(messageInputElement.value.trim());
-const alignment = alignmentSelect.value;
-const profilePicURL = user.profilePicture;
-const timestampValue = timestampInput.value;
+    const messageText = messageInputElement.value.trim().replace(/\n/g, '<br>');
+    const alignment = alignmentSelect.value;
+    const profilePicURL = user.profilePicture;
+    const timestampText = timestampInput.value;
 
-if (messageText) {
-  createMessage(userName, profilePicURL, messageText, alignment, timestampValue);
-  messageInputElement.value = '';
-  timestampInput.value = '';
-}
-
-function createMessage(userName, profilePicURL, messageText, alignment, timestampValue) {
-  const message = document.createElement('div');
-  message.classList.add('message', `message-${alignment}`);
-
-  const messageBox = document.createElement('div');
-  messageBox.classList.add('message-box');
-
-  const profilePic = document.createElement('img');
-  profilePic.classList.add('profile-pic');
-  profilePic.src = profilePicURL;
-  profilePic.style.width = '75px';
-  profilePic.style.height = '75px';
-
-  const arrowContainer = document.createElement('div');
-  arrowContainer.classList.add('arrow-container', `arrow-container-${alignment}`);
-
-  const moveUpBtn = document.createElement('button');
-  moveUpBtn.classList.add('move-up-btn');
-  moveUpBtn.textContent = '↑';
-  moveUpBtn.onclick = () => {
-    if (message.previousElementSibling) {
-      message.parentElement.insertBefore(message, message.previousElementSibling);
+    if (messageText) {
+      createMessage(userName, profilePicURL, messageText, alignment, timestampText);
+      messageInputElement.value = '';
+      timestampInput.value = '';
     }
-  };
-}
+  });
 
+  function createMessage(name, profilePicURL, text, alignment, timestampText) {
+    const message = document.createElement('div');
+    message.classList.add('message', `message-${alignment}`);
 
+    const messageBox = document.createElement('div');
+    messageBox.classList.add('message-box');
+
+    const profilePic = document.createElement('img');
+    profilePic.classList.add('profile-pic');
+    profilePic.src = profilePicURL;
+    profilePic.style.width = '75px';
+    profilePic.style.height = '75px';
+
+    const arrowContainer = document.createElement('div');
+    arrowContainer.classList.add('arrow-container', `arrow-container-${alignment}`);
+
+    const moveUpBtn = document.createElement('button');
+    moveUpBtn.classList.add('move-up-btn');
+    moveUpBtn.textContent = '↑';
+    moveUpBtn.onclick = () => {
+      if (message.previousElementSibling) {
+        message.parentElement.insertBefore(message, message.previousElementSibling);
+      }
+    };
 
     const moveDownBtn = document.createElement('button');
     moveDownBtn.classList.add('move-down-btn');
@@ -149,17 +143,15 @@ function createMessage(userName, profilePicURL, messageText, alignment, timestam
       userName.classList.add('name');
       userName.textContent = name;
 
-const timestampSpan = document.createElement('span');
-timestampSpan.classList.add('timestamp');
-timestampSpan.textContent = timestampText || new Date().toLocaleTimeString();
-
+      const timestamp = document.createElement('span');
+      timestamp.classList.add('timestamp');
+      timestamp.textContent = timestampText || new Date().toLocaleTimeString();
 
       const messageText = document.createElement('p');
       messageText.innerHTML = text;
 
       messageInfo.appendChild(userName);
-messageInfo.appendChild(timestampSpan);
-
+      messageInfo.appendChild(timestamp);
 
       messageContent.appendChild(messageInfo);
       messageContent.appendChild(messageText);
@@ -169,7 +161,7 @@ messageInfo.appendChild(timestampSpan);
       messageContent.style.boxShadow = 'none';
       messageContent.style.outline = 'none';
       messageContent.style.borderColor = 'transparent';
-      messageContent.style.color = '#000';
+      messageContent.style.color = '#000'; /* Reset text color to black */
       messageContent.setAttribute('data-augmented-ui', 'none');
       messageContent.innerHTML = text;
       message.classList.add('admin-message');
@@ -187,12 +179,6 @@ messageInfo.appendChild(timestampSpan);
 
     message.appendChild(messageBox);
 
-    const timestampContainer = document.createElement('div');
-    timestampContainer.classList.add('timestamp-container');
-    timestampContainer.appendChild(timestamp);
-
-    message.appendChild(timestampContainer);
-
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete-btn');
     deleteBtn.textContent = 'x';
@@ -205,34 +191,15 @@ messageInfo.appendChild(timestampSpan);
     document.querySelector('.comlink-container').appendChild(message);
   }
 
-  function bbCodeToHTML(text) {
-    const bbCodes = [
-      { regex: /\[b\](.*?)\[\/b\]/g, replacement: '<strong>$1</strong>' },
-      { regex: /\[i\](.*?)\[\/i\]/g, replacement: '<em>$1</em>' },
-      { regex: /\[u\](.*?)\[\/u\]/g, replacement: '<u>$1</u>' },
-      { regex: /\[s\](.*?)\[\/s\]/g, replacement: '<strike>$1</strike>' },
-      { regex: /\[left\](.*?)\[\/left\]/g, replacement: '<div style="text-align: left">$1</div>' },
-      { regex: /\[center\](.*?)\[\/center\]/g, replacement: '<div style="text-align: center">$1</div>' },
-      { regex: /\[right\](.*?)\[\/right\]/g, replacement: '<div style="text-align: right">$1</div>' },
-      { regex: /\[color=(.*?)\](.*?)\[\/color\]/g, replacement: '<span style="color: $1">$2</span>' },
-      { regex: /\[size=(.*?)\](.*?)\[\/size\]/g, replacement: '<span style="font-size: $1">$2</span>' },
-      { regex: /\[url\](.*?)\[\/url\]/g, replacement: '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>' },
-      { regex: /\[url=(.*?)\](.*?)\[\/url\]/g, replacement: '<a href="$1" target="_blank" rel="noopener noreferrer">$2</a>' },
-      { regex: /\[img\](.*?)\[\/img\]/g, replacement: '<img src="$1" alt="image" />' },
-      { regex: /\[quote\](.*?)\[\/quote\]/g, replacement: '<blockquote>$1</blockquote>' },
-    ];
-
-    bbCodes.forEach((code) => {
-      text = text.replace(code.regex, code.replacement);
-    });
-
-    return text;
+  // Save Users Function //
+  function saveUsers() {
+    localStorage.setItem('users', JSON.stringify(users));
   }
 
   function loadUsers() {
     updateUserList();
   }
 
+  // ====== END OF THE SCRIPT ===== //
   loadUsers();
 });
-
