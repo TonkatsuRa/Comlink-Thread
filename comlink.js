@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const sendMessageBtn = document.querySelector('#send-message-btn');
   const timestampInput = document.querySelector('#timestamp-input');
 
+  // Cookie //
+  document.cookie = 'mycookie=CyberCyber77; samesite=none; secure';
+  document.cookie = 'cookie_name=cookie_value;expires=Sun, 07 May 2023 12:00:00 UTC;path=/;domain=tonkatsura.github.io;secure;samesite=none';
+  
   let users = JSON.parse(localStorage.getItem('users')) || [{ name: 'Admin', profilePicture: '' }];
 
   addUserBtn.addEventListener('click', () => {
