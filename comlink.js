@@ -9,10 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const sendMessageBtn = document.querySelector('#send-message-btn');
   const timestampInput = document.querySelector('#timestamp-input');
 
-  // Cookie //
-  document.cookie = 'mycookie=CyberCyber77; samesite=none; secure';
-  document.cookie = 'cookie_name=cookie_value;expires=Sun, 07 May 2023 12:00:00 UTC;path=/;domain=tonkatsura.github.io;secure;samesite=none';
-  
   let users = JSON.parse(localStorage.getItem('users')) || [{ name: 'Admin', profilePicture: '' }];
 
   addUserBtn.addEventListener('click', () => {
@@ -78,50 +74,44 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Insert quote tags before converting the message to HTML
-    const editor = document.querySelector('[data-editor]');
-    const quoteTagOpen = "[quote]";
-    const quoteTagClose = "[/quote]";
-    const startPosition = editor.selectionStart;
-    const endPosition = editor.selectionEnd;
-    const messageWithQuote = editor.value.substring(0, startPosition) + quoteTagOpen + editor.value.substring(startPosition, endPosition) + quoteTagClose + editor.value.substring(endPosition);
+const messageText = bbCodeToHTML(messageInputElement.value.trim());
+const alignment = alignmentSelect.value;
+const profilePicURL = user.profilePicture;
+const timestampValue = timestampInput.value;
 
-    const messageText = bbCodeToHTML(messageWithQuote.trim());
-    const alignment = alignmentSelect.value;
-    const profilePicURL = user.profilePicture;
-    const timestampText = timestampInput.value;
+if (messageText) {
+  createMessage(userName, profilePicURL, messageText, alignment, timestampValue);
+  messageInputElement.value = '';
+  timestampInput.value = '';
+}
 
-    if (messageText) {
-      createMessage(userName, profilePicURL, messageText, alignment, timestampText);
-      messageInputElement.value = '';
-      timestampInput.value = '';
+function createMessage(userName, profilePicURL, messageText, alignment, timestampValue) {
+  const message = document.createElement('div');
+  message.classList.add('message', `message-${alignment}`);
+
+  const messageBox = document.createElement('div');
+  messageBox.classList.add('message-box');
+
+  const profilePic = document.createElement('img');
+  profilePic.classList.add('profile-pic');
+  profilePic.src = profilePicURL;
+  profilePic.style.width = '75px';
+  profilePic.style.height = '75px';
+
+  const arrowContainer = document.createElement('div');
+  arrowContainer.classList.add('arrow-container', `arrow-container-${alignment}`);
+
+  const moveUpBtn = document.createElement('button');
+  moveUpBtn.classList.add('move-up-btn');
+  moveUpBtn.textContent = '↑';
+  moveUpBtn.onclick = () => {
+    if (message.previousElementSibling) {
+      message.parentElement.insertBefore(message, message.previousElementSibling);
     }
-  });
+  };
+}
 
-  function createMessage(name, profilePicURL, text, alignment, timestampText) {
-    const message = document.createElement('div');
-    message.classList.add('message', `message-${alignment}`);
 
-    const messageBox = document.createElement('div');
-    messageBox.classList.add('message-box');
-
-    const profilePic = document.createElement('img');
-    profilePic.classList.add('profile-pic');
-    profilePic.src = profilePicURL;
-    profilePic.style.width = '75px';
-    profilePic.style.height = '75px';
-
-    const arrowContainer = document.createElement('div');
-    arrowContainer.classList.add('arrow-container', `arrow-container-${alignment}`);
-
-    const moveUpBtn = document.createElement('button');
-    moveUpBtn.classList.add('move-up-btn');
-    moveUpBtn.textContent = '↑';
-    moveUpBtn.onclick = () => {
-      if (message.previousElementSibling) {
-        message.parentElement.insertBefore(message, message.previousElementSibling);
-      }
-    };
 
     const moveDownBtn = document.createElement('button');
     moveDownBtn.classList.add('move-down-btn');
@@ -159,15 +149,17 @@ document.addEventListener('DOMContentLoaded', () => {
       userName.classList.add('name');
       userName.textContent = name;
 
-      const timestamp = document.createElement('span');
-      timestamp.classList.add('timestamp');
-      timestamp.textContent = timestampText || new Date().toLocaleTimeString();
+const timestampSpan = document.createElement('span');
+timestampSpan.classList.add('timestamp');
+timestampSpan.textContent = timestampText || new Date().toLocaleTimeString();
+
 
       const messageText = document.createElement('p');
       messageText.innerHTML = text;
 
       messageInfo.appendChild(userName);
-      messageInfo.appendChild(timestamp);
+messageInfo.appendChild(timestampSpan);
+
 
       messageContent.appendChild(messageInfo);
       messageContent.appendChild(messageText);
@@ -194,6 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     message.appendChild(messageBox);
+
+    const timestampContainer = document.createElement('div');
+    timestampContainer.classList.add('timestamp-container');
+    timestampContainer.appendChild(timestamp);
+
+    message.appendChild(timestampContainer);
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete-btn');
@@ -231,28 +229,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return text;
   }
 
-  // Quote Button //
-  function insertQuote(button) {
-    const editor = document.querySelector(`.${button.parentElement.parentElement.dataset.parent}`);
-    const quoteTagOpen = "[quote]";
-    const quoteTagClose = "[/quote]";
-
-    const startPosition = editor.selectionStart;
-    const endPosition = editor.selectionEnd;
-
-    editor.value = editor.value.substring(0, startPosition) + quoteTagOpen + editor.value.substring(startPosition, endPosition) + quoteTagClose + editor.value.substring(endPosition);
-
-    editor.focus();
-    editor.selectionStart = startPosition + quoteTagOpen.length;
-    editor.selectionEnd = endPosition + quoteTagOpen.length;
-  }
-
-  // load user //
-  
   function loadUsers() {
     updateUserList();
   }
 
-  // ====== END OF THE SCRIPT ===== //
   loadUsers();
 });
+
