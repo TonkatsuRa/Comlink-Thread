@@ -1,93 +1,205 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/augmented-ui@2/augmented-ui.min.css">
-  <link rel="stylesheet" href="augmented-ui.min.css">
-  <link rel="stylesheet" href="comlink.css">
-  <title>Shadowrun Comlink</title>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.2.0/markdown-it.min.js"></script>
-<!--- BBcode Parser --->
+document.addEventListener('DOMContentLoaded', () => {
+  const aliases = document.querySelector('#alias-select');
+  const addUserBtn = document.querySelector('#add-user-btn');
+  const deleteUserBtn = document.querySelector('#delete-user-btn');
+  const userInputElement = document.querySelector('#alias-input');
+const messageInputElement = document.querySelector('.editor');
+  const alignmentSelect = document.querySelector('#alignment-select');
+  const profilePicInput = document.querySelector('#profile-pic-input');
+  const sendMessageBtn = document.querySelector('#send-message-btn');
+  const timestampInput = document.querySelector('#timestamp-input');
 
-</head>
+  let users = JSON.parse(localStorage.getItem('users')) || [{ name: 'Admin', profilePicture: '' }];
 
-<body>
+  addUserBtn.addEventListener('click', () => {
+    const userName = userInputElement.value.trim();
+    const file = profilePicInput.files[0];
 
-  <!-- Sidebar -->
-  <div class="sidebar" data-augmented-ui="border tl-clip br-clip">
-    <h2>Create Message</h2>
-    <label for="alias-input">User:</label>
-    <input type="text" id="alias-input" placeholder="Enter Alias">
-    <label for="profile-pic-input">Profile Picture:</label>
-    <input type="file" id="profile-pic-input" accept="image/*">
-    <button id="add-user-btn">Add User</button>
-
-    <div class="user-selection">
-      <label for="alias-select">Alias:</label>
-      <select id="alias-select">
-        <option value="">Select User...</option>
-        <option value="Admin">Admin</option> <!-- Add Admin as an option -->
-      </select>
-      <button id="delete-user-btn" class="user-delete-btn">x</button>
-    </div>
-    
-    <label for="alignment-select">Message Alignment:</label>
-    <select id="alignment-select">
-      <option value="left">Left</option>
-      <option value="right">Right</option>
-    </select>
-    <label for="message-input">Message:</label>
-    <textarea name="content" class="editor" data-editor></textarea>
-    <label for="timestamp-input">Date & Time:</label>
-<input type="text" id="timestamp-input" placeholder="yyyy-mm-dd hh:mm:ss">
-<button id="send-message-btn">Send Message</button>
-</div>
-
-<!-- Main content area -->
-<div class="comlink-container" data-augmented-ui="tl-clip tr-clip br-clip bl-clip border">
-  <!-- Your message content -->
-</div>
-
-<script>
-// Your existing JavaScript code for the Shadowrun Comlink project
-</script>
-
-<script>
-$(document).on("mousedown", "[data-bbcode]", function() {
-  var editor = $("." + $(this).parent(".btn-group").parent(".editor-buttons").attr("data-parent"));
-  var str = $(editor).val();
-  var selection = getInputSelection($(editor));
-  if (selection.length > 0) {
-    $(editor).val(str.replace(selection, "[" + $(this).attr("data-bbcode") + "]" + selection + "[/" + $(this).attr("data-bbcode") + "]"));
-  } else {
-    $(editor).val(str + "[" + $(this).attr("data-bbcode") + "]" + "[/" + $(this).attr("data-bbcode") + "]");
-  }
-});
-$(document).ready(function() {
-  var editors = $("[data-editor]");
-  $(editors).each(function(i, el) {
-    var buttons = '<div class="editor-buttons btn-toolbar" data-parent="editor-' + i + '"><div class="btn-group mr-2"><button type="button" class="btn btn-dark" data-bbcode="b"><i class="fa fa-bold"></i></button><button type="button" class="btn btn-dark" data-bbcode="i"><i class="fa fa-italic"></i></button><button type="button" class="btn btn-dark" data-bbcode="u"><i class="fa fa-underline"></i></button></div><div class="btn-group mr-2"><button type="button" class="btn btn-dark" data-bbcode="left"><i class="fa fa-align-left"></i></button><button type="button" class="btn btn-dark" data-bbcode="center"><i class="fa fa-align-center"></i></button><button type="button" class="btn btn-dark" data-bbcode="right"><i class="fa fa-align-right"></i></button></div><div class="btn-group mr-2"><button type="button" class="btn btn-dark" data-bbcode="img"><i class="fa fa-picture-o"></i></button></div></div>';
-    $(el).before(buttons);
-    $(el).addClass("editor-" + i);
+    if (userName && !getUserByName(userName)) {
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          const profilePicURL = reader.result;
+          users.push({ name: userName, profilePicture: profilePicURL });
+          updateUserList();
+          saveUsers(); // Save the users array to localStorage
+          userInputElement.value = '';
+          profilePicInput.value = '';
+        }
+        reader.readAsDataURL(file);
+      } else {
+        users.push({ name: userName, profilePicture: '' });
+        updateUserList();
+        saveUsers(); // Save the users array to localStorage
+        userInputElement.value = '';
+        profilePicInput.value = '';
+      }
+    }
   });
-});
 
+  deleteUserBtn.addEventListener('click', () => {
+    const userName = aliases.value;
+    const userIndex = users.findIndex((user) => user.name === userName);
 
-function getInputSelection(elem) {
-  if (typeof elem != "undefined") {
-    s = elem[0].selectionStart;
-    e = elem[0].selectionEnd;
-    return elem.val().substring(s, e);
-  } else {
-    return '';
+    if (userIndex > -1 && userName !== 'Admin') {
+      users.splice(userIndex, 1);
+      updateUserList();
+      saveUsers();
+    }
+  });
+
+  function updateUserList() {
+    aliases.innerHTML = '';
+    users.forEach((user) => {
+      const option = document.createElement('option');
+      option.value = user.name;
+      option.textContent = user.name;
+      aliases.appendChild(option);
+    });
   }
-}
-</script>
 
-</body>
-</html>
+  function getUserByName(name) {
+    return users.find((user) => user.name === name);
+  }
+
+  sendMessageBtn.addEventListener('click', () => {
+    const userName = aliases.value;
+    const user = getUserByName(userName);
+    if (!user) {
+      alert('User not found');
+      return;
+    }
+
+    const messageText = messageInputElement.value.trim().replace(/\n/g, '<br>');
+    const alignment = alignmentSelect.value;
+    const profilePicURL = user.profilePicture;
+    const timestampText = timestampInput.value;
+
+    if (messageText) {
+      createMessage(userName, profilePicURL, messageText, alignment, timestampText);
+      messageInputElement.value = '';
+      timestampInput.value = '';
+    }
+  });
+
+  function createMessage(name, profilePicURL, text, alignment, timestampText) {
+    const message = document.createElement('div');
+    message.classList.add('message', `message-${alignment}`);
+
+    const messageBox = document.createElement('div');
+    messageBox.classList.add('message-box');
+
+    const profilePic = document.createElement('img');
+    profilePic.classList.add('profile-pic');
+    profilePic.src = profilePicURL;
+    profilePic.style.width = '75px';
+    profilePic.style.height = '75px';
+
+    const arrowContainer = document.createElement('div');
+    arrowContainer.classList.add('arrow-container', `arrow-container-${alignment}`);
+
+    const moveUpBtn = document.createElement('button');
+    moveUpBtn.classList.add('move-up-btn');
+    moveUpBtn.textContent = '↑';
+    moveUpBtn.onclick = () => {
+      if (message.previousElementSibling) {
+        message.parentElement.insertBefore(message, message.previousElementSibling);
+      }
+    };
+
+    const moveDownBtn = document.createElement('button');
+    moveDownBtn.classList.add('move-down-btn');
+    moveDownBtn.textContent = '↓';
+    moveDownBtn.onclick = () => {
+      if (message.nextElementSibling) {
+        message.parentElement.insertBefore(message.nextElementSibling, message);
+      }
+    };
+
+    arrowContainer.appendChild(moveUpBtn);
+    arrowContainer.appendChild(moveDownBtn);
+
+    if (alignment === 'left') {
+      messageBox.appendChild(arrowContainer);
+      if (name !== 'Admin') {
+        messageBox.appendChild(profilePic);
+      }
+    }
+
+    const messageContent = document.createElement('div');
+    messageContent.classList.add('message-content');
+    if (alignment === 'left') {
+      messageContent.setAttribute('data-augmented-ui', 'bl-clip tr-2-clip-x');
+    }
+    if (alignment === 'right') {
+      messageContent.setAttribute('data-augmented-ui', 'br-clip tl-2-clip-x');
+    }
+
+    if (name !== 'Admin') {
+      const messageInfo = document.createElement('div');
+      messageInfo.classList.add('message-info');
+
+      const userName = document.createElement('span');
+      userName.classList.add('name');
+      userName.textContent = name;
+
+      const timestamp = document.createElement('span');
+      timestamp.classList.add('timestamp');
+      timestamp.textContent = timestampText || new Date().toLocaleTimeString();
+
+      const messageText = document.createElement('p');
+      messageText.innerHTML = text;
+
+      messageInfo.appendChild(userName);
+      messageInfo.appendChild(timestamp);
+
+      messageContent.appendChild(messageInfo);
+      messageContent.appendChild(messageText);
+    } else {
+      messageContent.style.background = 'transparent';
+      messageContent.style.border = 'none';
+      messageContent.style.boxShadow = 'none';
+      messageContent.style.outline = 'none';
+      messageContent.style.borderColor = 'transparent';
+      messageContent.style.color = '#000'; /* Reset text color to black */
+      messageContent.setAttribute('data-augmented-ui', 'none');
+      messageContent.innerHTML = text;
+      message.classList.add('admin-message');
+      messageContent.classList.add('admin-message-content');
+    }
+
+    messageBox.appendChild(messageContent);
+
+    if (alignment === 'right') {
+      if (name !== 'Admin') {
+        messageBox.appendChild(profilePic);
+      }
+      messageBox.appendChild(arrowContainer);
+    }
+
+    message.appendChild(messageBox);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.textContent = 'x';
+    deleteBtn.onclick = () => {
+      message.remove();
+    };
+
+    messageBox.appendChild(deleteBtn);
+
+    document.querySelector('.comlink-container').appendChild(message);
+  }
+
+  // Save Users Function //
+  function saveUsers() {
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+
+  function loadUsers() {
+    updateUserList();
+  }
+
+  // ====== END OF THE SCRIPT ===== //
+  loadUsers();
+});
