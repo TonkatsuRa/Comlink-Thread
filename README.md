@@ -16,4 +16,5 @@ Features I want to implement:
 - DONE // Being able to write "system messages" without a chat bubble like in the 80's sci-fi computer terminals
 - Being able to export the chat thread with the full layout (kinda like a long screenshot)
 - DONE // Use of simple BBcode to post images (e.g.  [img]https://example.jpg[/img] or with width / height command like [img width="50" height="50"]https://example.jpg[/img]
+- DONE // Added a simple BB-code Editor for ease of use
 
