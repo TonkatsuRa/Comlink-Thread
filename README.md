@@ -21,3 +21,4 @@ Features I want to implement:
 - Being able to export the chat thread with the full layout (kinda like a long screenshot)
 
 
+If you like my work and you want to support me a bit: https://www.buymeacoffee.com/TonkatsuRamen
