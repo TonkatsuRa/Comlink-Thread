@@ -1,425 +1,19 @@
-/* Body */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
-body {
-  font-family: 'IBM Plex Mono', monospace;
-  background-image: url('https://github.com/TonkatsuRa/Comlink-Thread/blob/main/SRBG.jpg?raw=true');
-  background-size: cover;
-  background-color: rgba(34, 34, 34, 0.7);
-  color: #fff;
-  display: flex;
-}
-
-.comlink-wrapper {
-  padding: 50px; /* Adjust the padding value as needed */
-}
-
-/* Container */
-
-.comlink-container {
-  position: relative;
-  width: 800px;
-  padding: 40px;
-  max-width: 900px;
-  margin: 0 auto;
-  background-color: rgba(0, 255, 255, 0.05); /* Adjust the alpha value (0.05) for transparency */
-  border: var(--aug-border) 3px solid;
-  background-image: var(--aug-bg);
-  box-shadow: 0 0 10px var(--aug-glow);
-  backdrop-filter: blur(5px);
-  --aug-border: initial;
-  --aug-border-all: 5px;
-  --aug-border-bg: linear-gradient(135deg, rgba(255, 255, 0, 0.5) 30%, rgba(0, 255, 255, 0.8) 100%); 
-  --aug-bg: linear-gradient(135deg, rgba(0, 255, 0, 0.01) 30%, rgba(0, 255, 255, 0.3) 100%); 
-  --aug-glow: rgba(0, 255, 255, 1);
-    --aug-clip-t1: initial;
-    --aug-clip-t2: initial;
-    --aug-clip-b1: initial;
-    --aug-clip-b2: initial;
-    --aug-t-extend1: 50%;
-    --aug-b-extend1: 50%;
-}
-
-.admin-message .message-content::before,
-.admin-message .message-content::after {
-  display: none !important;
-}
-
-.message-left .message-content,
-.message-right .message-content {
-  color: #fff !important;
-}
-
-.admin-message .message-box {
-  padding: 0;
-  margin: 0;
-}
-
-.admin-message .message-content {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  color: #0dff00 !important;
-  text-shadow: #000000 3px 0 10px;
-      -webkit-mask-image: repeating-linear-gradient(black, black 2px, transparent 3px);
-  animation: retro-future-tv-lines linear infinite;
-    animation-duration: 4s; 
-}
-
-
-
-#alias-select {
-    padding: 5px;
-    color: #FFF;
-}
-
-select option {
-  margin: 40px;
-  background: rgba(0, 0, 0, 0.3);
-  color: #fff;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-}
-
-
-/* Sidebar */
-.sidebar {
-  width: 350px;
-  padding: 20px;
-  display: flex;
-  color: #FFF;
-  flex-direction: column;
-  backdrop-filter: blur(5px);
-  --aug-border-bg: linear-gradient(135deg, rgba(255, 255, 0, 0.5) 30%, rgba(0, 255, 255, 0.8) 100%); 
-}
-
-.sidebar h2 {
-  margin: 0 0 5px;
-  font-size: 1.5rem;
-  color: #FFFF00;
-}
-
-input[type="text"],
-textarea,
-select {
-  background-color: rgba(0, 255, 255, 0.1);
-  border: 1px solid #FFFF00;
-  border-radius: 5px;
-  padding: 3px;
-  font-size: 1rem;
-  color: #fff;
-  outline: none;
-  width: 100%;
-  margin-bottom: 10px;
-
-}
-input, textarea, file, select {
-  width: 90%;
-  color: #FFF;
-  option-color: rgba(0, 255, 255, 0.1);
-}
-
-input[type="file"] {
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-.user-selection {
-  position: relative;
-  display: absolute;
-  align-items: center;
-  margin-top: 15px;
-}
-
-.delete-btn {
-  position: absolute;
-  top: 2px;
-  width: 16px;
-  height: 16px;
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  background-color: rgba(255, 255, 0, 0.8);
-  border-radius: 50%;
-  cursor: pointer;
-  display: none;
-}
-
-.user-delete-btn {
-  position: center;
-  top: 0;
-  right: 0;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 0, 0.75);
-  color: black;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  margin-left: 4px;
-  margin-bottom: 10px;
-}
-
-.user-delete-btn:hover {
-  background-color: #d32f2f;
-}
-
-.message-left .delete-btn {
-  left: 5px;
-}
-
-.message-right .delete-btn {
-  right: 5px;
-}
-
-.message:hover .delete-btn {
-  display: block;
-}
-
-.move-up-btn,
-.move-down-btn {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 0;
-  margin: 0 2px;
-  margin-top: 20px;
-  color: #FFFF00;
-  visibility: hidden;
-  transition: visibility 0.3s;
-}
-
-.message:hover .move-up-btn,
-.message:hover .move-down-btn {
-  visibility: visible;
-}
-
-/* Message */
-.message {
-  display: flex;
-  margin-bottom: 15px;
-  position: relative;
-}
-
-.message-box {
-  position: relative;
-  display: flex;
-}
-
-/* Right message box */
-.message-right {
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
-.message-right .timestamp {
-  right: 5px;
-}
-
-.message-right .message-content .timestamp {
-  right: 0;
-  left: 0;
-  top: 100%;
-  position: absolute;
-}
-
-.message-right .message-content {
-  text-align: right;
-}
-
-.message-right .name {
-  text-align: right;
-  margin-left: auto;
-}
-
-.message-right .timestamp {
-  left: auto;
-  right: 0;
-}
-
-.message-right .message-content {
-  background-color: rgba(255, 165, 0, 0.2);
-}
-
-/* Left message box */
-.message-left {
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.message-left .timestamp {
-  left: 5px;
-}
-
-.message-left .message-content .timestamp {
-  right: 0;
-  left: 0;
-  top: 100%;
-  position: absolute;
-}
-
-.message-left .message-content {
-  background-color: rgba(255, 0, 0, 0.2);
-}
-
-/* Profile Picture */
-.profile-pic {
-  border-radius: 5px;
-  object-fit: cover;
-  margin-right: 2px;
-  border: 2px solid #3FCBFF;
-      -webkit-mask-image: repeating-linear-gradient(black, black 2px, transparent 3px);
-  animation: retro-future-tv-lines linear infinite;
-    animation-duration: 4s; 
-}
-
-.message-content {
-  padding: 10px;
-  box-shadow: 0 0 10px #0ff;
-  display: flex;
-  flex-direction: column;
-  max-width: 550px;
-  min-width: 350px;
-  word-wrap: break-word;
-  position: relative;
-  padding-bottom: 0.1em;
-  --aug-border: initial;
-  --aug-border-all: 1px;
-  --aug-border-bg: #3FCBFF;
-  --aug-tr-extend1: 5%;
-  --aug-tr-extend2: 0%;
-  --aug-tr-inset1: 0%;
-  --aug-tr-inset2: 0%;
-  --aug-tl-extend1: 0%;
-  --aug-tl-extend2: 5%;
-  --aug-tl-inset1: 0%;
-  --aug-tl-inset2: 0%;
-  --aug-tl1: 0.05in;
-  --aug-tr1: 0.05in;
-  --aug-br1: 0.1in;
-  --aug-bl1: 0.1in;
-}
-
-
-.name{
-    color: #FFFF00;
-    filter: drop-shadow(0px 0px 0.125rem white);
-    -webkit-mask-image: repeating-linear-gradient(black, black 2px, transparent 3px);
-  animation: retro-future-tv-lines linear infinite;
-    animation-duration: 4s; 
-}
-
-.message-info{
-  line-height: 12px; 
-}
-
-.timestamp {
-  position: absolute;
-  bottom: 2px;
-  font-size: 0.8rem;
-  color: #FFFF00;
-  opacity: 0.8;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .comlink-container {
-    width: 90%;
-    padding: 20px;
-  }
-
-  .sidebar {
-    width: 100%;
-    padding: 10px;
-  }
-
-  input[type="text"],
-  textarea,
-  select {
-    width: 100%;
-  }
-}
-
-/* BBcode Buttons */
-.btn-dark {
-  background-color: rgba(0, 255, 255, 0.1) !important;
-  color: #FFFF00 !important;
-  font-size: 0.7rem !important;
-  padding: 0.5rem 0.55rem !important;
-}
-
-.btn-dark:hover {
-  background-color: rgba(255, 255, 0, 0.3) !important;
-}
-
-
-/* Admin Message */
-.admin-message {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 1rem;
-  color: #0f0; /* Green text color similar to old computer terminals */
-  background-color: transparent;
-  border: none;
-  margin-left: 10px;
-}
-
-ChatGPT
-
-Your CSS code is quite extensive, and I see you've set the default color for text to white using color: #fff;. However, the message text is being overridden by the message-content CSS rule. To change the message text color to white, update the .message-content rule in your CSS code as follows:
-
-Replace this line:
-
-css
-
-color: #0dff00 !important;
-
-with:
-
-css
-
-color: #fff !important;
-
-Now, the text color for the messages should appear as white.
-User
-This part is for the admin message and should stay green. I need the left and right message texts to be white
-ChatGPT
-
-Apologies for the confusion. In that case, add the following CSS rule to change the text color for both left and right messages to white:
-
-css
-
-.message-left .message-content,
-.message-right .message-content {
-  color: #fff !important;
-}
-
-Add this rule to your CSS code, and it should make the text color of both left and right messages white.
-User
-okay that worked but why is the BBcode editor now gone ?
-ChatGPT
-
-I apologize for any confusion. Based on the provided HTML and CSS code, there is no BBCode editor present. It seems that you may not have provided the complete HTML code or the BBCode editor is in another part of the code.
-
-If you could provide the relevant HTML and JavaScript code for the BBCode editor, I'd be happy to help you with that.
-User
-this is my HTML code:
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/augmented-ui@2/augmented-ui.min.css">
   <link rel="stylesheet" href="comlink.css">
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.3.3/dist/html2canvas.min.js"></script>
-  <script src="https://unpkg.com/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
   <title>Shadowrun Comlink</title>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.2.0/markdown-it.min.js"></script>
+  <script src="comlink.js"></script>
 </head>
+
 <body>
 
   <!-- Sidebar -->
@@ -447,8 +41,8 @@ this is my HTML code:
     </select>
     <label for="message-input">Message:</label>
     <textarea name="content" class="editor" data-editor></textarea>
-    <label for="timestamp-input">Date & Time:</label>
-<input type="text" id="timestamp-input" placeholder="yyyy-mm-dd hh:mm:ss">
+   <!--- <label for="timestamp-input">Date & Time:</label> --->
+<!--- <input type="text" id="timestamp-input" placeholder="yyyy-mm-dd hh:mm:ss"> --->
 <button id="send-message-btn">Send Message</button>
 </div>
 
@@ -456,77 +50,95 @@ this is my HTML code:
 <div class="comlink-container" data-augmented-ui="tl-clip tr-clip br-clip bl-clip border">
   <!-- Your message content -->
 </div>
+<body>
 
-<script src="comlink.js"></script>
+  <header class="comlink-header" data-augmented-ui="border bl-clip br-clip">
+    <div class="header-title">
+      <span class="header-eyebrow">Shadowrun Comlink</span>
+      <h1>Thread Console</h1>
+    </div>
+    <div class="header-meta">
+      <div class="meta-label">Messages</div>
+      <div class="meta-value" id="message-count">0</div>
+    </div>
+  </header>
 
-</body>
-</html>
+  <main class="app-shell">
+    <!-- Sidebar -->
+    <div class="sidebar" data-augmented-ui="border tl-clip br-clip">
+      <h2>Create Message</h2>
+      <p class="helper-text">Build a roster and drop messages into the live feed.</p>
 
-ChatGPT
+      <section class="panel-section">
+        <h3>User Builder</h3>
+        <label for="alias-input">User:</label>
+        <input type="text" id="alias-input" placeholder="Enter Alias">
+        <label for="profile-pic-input">Profile Picture:</label>
+        <input type="file" id="profile-pic-input" accept="image/*">
+        <button id="add-user-btn" class="action-button">Add User</button>
+      </section>
 
-Thank you for providing the HTML code. I see that you are using Bootstrap and Font Awesome for the styling and the jQuery library for JavaScript. The BBCode editor might not be included in your project. To add a simple BBCode editor, you can use the following steps:
+      <section class="panel-section">
+        <h3>Message Settings</h3>
+        <div class="user-selection">
+          <label for="alias-select">Alias:</label>
+          <select id="alias-select">
+            <option value="">Select User...</option>
+            <option value="Admin">Admin</option>
+          </select>
+          <button id="delete-user-btn" class="user-delete-btn" title="Delete user">x</button>
+        </div>
 
-    Add the following CSS to your comlink.css file to style the BBCode buttons:
+        <label for="alignment-select">Message Alignment:</label>
+        <select id="alignment-select">
+          <option value="left">Left</option>
+          <option value="right">Right</option>
+        </select>
+      </section>
 
-css
+      <section class="panel-section">
+        <h3>Compose</h3>
+        <label for="message-input">Message:</label>
+        <textarea id="message-input" name="content" class="editor" data-editor placeholder="Type a message. Use BBCode for styling."></textarea>
+        <div class="sidebar-actions">
+          <button id="send-message-btn" class="action-button primary">Send Message</button>
+          <button id="clear-message-btn" class="action-button ghost">Clear Draft</button>
+        </div>
+      </section>
 
-.bbcode-button {
-  background-color: transparent;
-  border: none;
-  color: #FFFF00;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-right: 5px;
-  padding: 0;
-}
+      <div class="panel-footer">
+        <button id="clear-thread-btn" class="action-button danger">Clear Thread</button>
+        <span class="status-message" id="status-message" role="status" aria-live="polite"></span>
+      </div>
+    </div>
 
-.bbcode-button:hover {
-  color: #FFAA00;
-}
+    <!-- Main content area -->
+    <div class="comlink-container" data-augmented-ui="tl-clip tr-clip br-clip bl-clip border">
+      <!-- Your message content -->
+    </div>
+  </main>
 
-    Add the BBCode buttons in the HTML file just below the </textarea> element:
+<script>
+// Your existing JavaScript code for the Shadowrun Comlink project
+</script>
 
-html
-
-<div class="bbcode-buttons">
-  <button class="bbcode-button" data-tag="b">B</button>
-  <button class="bbcode-button" data-tag="i">I</button>
-  <button class="bbcode-button" data-tag="u">U</button>
-  <button class="bbcode-button" data-tag="url">URL</button>
-  <button class="bbcode-button" data-tag="img">IMG</button>
-</div>
-
-    Add the following JavaScript code to the comlink.js file to handle the button clicks and insert the BBCode tags:
-
-javascript
-
-$(document).ready(function () {
-  $(".bbcode-button").on("click", function () {
-    const tag = $(this).data("tag");
-    const textarea = $(".editor");
-
-    // Get the cursor position in the textarea
-    const startPos = textarea.prop("selectionStart");
-    const endPos = textarea.prop("selectionEnd");
-
-    // Wrap the selected text with BBCode tags
-    const beforeTag = `[${tag}]`;
-    const afterTag = `[/${tag}]`;
-    const selectedText = textarea.val().substring(startPos, endPos);
-
-    // Insert the new text with BBCode tags
-    textarea.val(
-      textarea.val().substring(0, startPos) +
-        beforeTag +
-        selectedText +
-        afterTag +
-        textarea.val().substring(endPos)
-    );
-
-    // Set the new cursor position
-    textarea.prop("selectionStart", startPos + beforeTag.length);
-    textarea.prop("selectionEnd", endPos + beforeTag.length);
+<script>
+$(document).on("mousedown", "[data-bbcode]", function() {
+  var editor = $("." + $(this).parent(".btn-group").parent(".editor-buttons").attr("data-parent"));
+  var str = $(editor).val();
+  var selection = getInputSelection($(editor));
+  if (selection.length > 0) {
+    $(editor).val(str.replace(selection, "[" + $(this).attr("data-bbcode") + "]" + selection + "[/" + $(this).attr("data-bbcode") + "]"));
+  } else {
+    $(editor).val(str + "[" + $(this).attr("data-bbcode") + "]" + "[/" + $(this).attr("data-bbcode") + "]");
+  }
+});
+$(document).ready(function() {
+  var editors = $("[data-editor]");
+  $(editors).each(function(i, el) {
+    var buttons = '<div class="editor-buttons btn-toolbar" data-parent="editor-' + i + '"><div class="btn-group mr-2"><button type="button" class="btn btn-dark" data-bbcode="b"><i class="fa fa-bold"></i></button><button type="button" class="btn btn-dark" data-bbcode="i"><i class="fa fa-italic"></i></button><button type="button" class="btn btn-dark" data-bbcode="u"><i class="fa fa-underline"></i></button></div><div class="btn-group mr-2"><button type="button" class="btn btn-dark" data-bbcode="left"><i class="fa fa-align-left"></i></button><button type="button" class="btn btn-dark" data-bbcode="center"><i class="fa fa-align-center"></i></button><button type="button" class="btn btn-dark" data-bbcode="right"><i class="fa fa-align-right"></i></button></div><div class="btn-group mr-2"><button type="button" class="btn btn-dark" data-bbcode="img"><i class="fa fa-picture-o"></i></button></div></div>';
+    $(el).before(buttons);
+    $(el).addClass("editor-" + i);
   });
 });
-
 
