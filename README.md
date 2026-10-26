@@ -18,7 +18,11 @@ Features I want to implement:
 - DONE // Use of simple BBcode to post images (e.g.  [img]https://example.jpg[/img] or with width / height command like [img width="50" height="50"]https://example.jpg[/img]
 - DONE // Added a simple BB-code Editor for ease of use
 - DONE // Added a CRT Scanline Filter over the profile pictures just because
-- Being able to export the chat thread with the full layout (kinda like a long screenshot)
+- DONE // Messages and users persisted in local browser storage
+- DONE // Edit an existing message (pencil button on hover)
+- DONE // Several named threads can be saved, loaded and deleted
+- DONE // Clear draft / clear thread buttons, message counter and status line
+- DONE // Export a single message or the whole thread as PDF (browser print dialog, choose "Save as PDF") or as PNG (simplified rendering: square corners, no blur effect)
 
 
 If you like my work and you want to support me a bit: https://www.buymeacoffee.com/TonkatsuRamen

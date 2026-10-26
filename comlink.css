@@ -366,167 +366,196 @@ input[type="file"] {
   margin-left: 10px;
 }
 
-ChatGPT
+/* =============================================================================
+   Additions: sidebar controls (clear/export/saved threads), status line,
+   per-message action buttons and the print stylesheet used for PDF export.
+   ============================================================================= */
 
-Your CSS code is quite extensive, and I see you've set the default color for text to white using color: #fff;. However, the message text is being overridden by the message-content CSS rule. To change the message text color to white, update the .message-content rule in your CSS code as follows:
-
-Replace this line:
-
-css
-
-color: #0dff00 !important;
-
-with:
-
-css
-
-color: #fff !important;
-
-Now, the text color for the messages should appear as white.
-User
-This part is for the admin message and should stay green. I need the left and right message texts to be white
-ChatGPT
-
-Apologies for the confusion. In that case, add the following CSS rule to change the text color for both left and right messages to white:
-
-css
-
-.message-left .message-content,
-.message-right .message-content {
-  color: #fff !important;
+.sidebar-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
 }
 
-Add this rule to your CSS code, and it should make the text color of both left and right messages white.
-User
-okay that worked but why is the BBcode editor now gone ?
-ChatGPT
+#message-count-wrap {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
 
-I apologize for any confusion. Based on the provided HTML and CSS code, there is no BBCode editor present. It seems that you may not have provided the complete HTML code or the BBCode editor is in another part of the code.
+#message-count {
+  color: #FFFF00;
+  font-weight: bold;
+}
 
-If you could provide the relevant HTML and JavaScript code for the BBCode editor, I'd be happy to help you with that.
-User
-this is my HTML code:
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="comlink.css">
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.3.3/dist/html2canvas.min.js"></script>
-  <script src="https://unpkg.com/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
-  <title>Shadowrun Comlink</title>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-</head>
-<body>
+.composer-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
 
-  <!-- Sidebar -->
-  <div class="sidebar" data-augmented-ui="border tl-clip br-clip">
-    <h2>Create Message</h2>
-    <label for="alias-input">User:</label>
-    <input type="text" id="alias-input" placeholder="Enter Alias">
-    <label for="profile-pic-input">Profile Picture:</label>
-    <input type="file" id="profile-pic-input" accept="image/*">
-    <button id="add-user-btn">Add User</button>
+.composer-actions button {
+  flex: 1;
+}
 
-    <div class="user-selection">
-      <label for="alias-select">Alias:</label>
-      <select id="alias-select">
-        <option value="">Select User...</option>
-        <option value="Admin">Admin</option> <!-- Add Admin as an option -->
-      </select>
-      <button id="delete-user-btn" class="user-delete-btn">x</button>
-    </div>
-    
-    <label for="alignment-select">Message Alignment:</label>
-    <select id="alignment-select">
-      <option value="left">Left</option>
-      <option value="right">Right</option>
-    </select>
-    <label for="message-input">Message:</label>
-    <textarea name="content" class="editor" data-editor></textarea>
-    <label for="timestamp-input">Date & Time:</label>
-<input type="text" id="timestamp-input" placeholder="yyyy-mm-dd hh:mm:ss">
-<button id="send-message-btn">Send Message</button>
-</div>
+.export-thread-label {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
 
-<!-- Main content area -->
-<div class="comlink-container" data-augmented-ui="tl-clip tr-clip br-clip bl-clip border">
-  <!-- Your message content -->
-</div>
+#saved-threads-select {
+  margin-bottom: 8px;
+}
 
-<script src="comlink.js"></script>
+.secondary-btn,
+.danger-btn {
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid #FFFF00;
+  color: #fff;
+  border-radius: 5px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
 
-</body>
-</html>
+.secondary-btn:hover {
+  background-color: rgba(255, 255, 0, 0.2);
+}
 
-ChatGPT
+.danger-btn {
+  border-color: #d32f2f;
+}
 
-Thank you for providing the HTML code. I see that you are using Bootstrap and Font Awesome for the styling and the jQuery library for JavaScript. The BBCode editor might not be included in your project. To add a simple BBCode editor, you can use the following steps:
+.danger-btn:hover {
+  background-color: rgba(211, 47, 47, 0.3);
+}
 
-    Add the following CSS to your comlink.css file to style the BBCode buttons:
+#status-message {
+  display: block;
+  min-height: 1.2em;
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
 
-css
-
-.bbcode-button {
+/* Edit / PDF buttons sit alongside the existing move-up/move-down buttons and
+   share their default hidden-until-hover behaviour (see the ".message:hover"
+   rule further down, extended to include these two new classes). */
+.edit-btn,
+.pdf-btn,
+.png-btn {
   background-color: transparent;
   border: none;
-  color: #FFFF00;
   cursor: pointer;
-  font-size: 1rem;
-  margin-right: 5px;
+  font-size: 12px;
   padding: 0;
+  margin: 0 2px;
+  margin-top: 20px;
+  color: #FFFF00;
+  visibility: hidden;
+  transition: visibility 0.3s;
 }
 
-.bbcode-button:hover {
-  color: #FFAA00;
+.message:hover .edit-btn,
+.message:hover .pdf-btn,
+.message:hover .png-btn {
+  visibility: visible;
 }
 
-    Add the BBCode buttons in the HTML file just below the </textarea> element:
+/* -----------------------------------------------------------------------
+   Print stylesheet: used for single-message PDF export (see
+   exportMessageToPdf in comlink.js). When the user clicks a message's
+   "PDF" button, that message gets the .print-target class and window.print()
+   is invoked; this stylesheet hides everything else on the page so only the
+   target message ends up in the printed / "Saved as PDF" output.
+   ----------------------------------------------------------------------- */
+@media print {
+  /* Take everything except the thread out of the layout (the sidebar would
+     otherwise still occupy space and shift/clip the page). */
+  body > :not(.comlink-container) {
+    display: none !important;
+  }
 
-html
+  body {
+    display: block !important;
+    background-image: none !important;
+  }
 
-<div class="bbcode-buttons">
-  <button class="bbcode-button" data-tag="b">B</button>
-  <button class="bbcode-button" data-tag="i">I</button>
-  <button class="bbcode-button" data-tag="u">U</button>
-  <button class="bbcode-button" data-tag="url">URL</button>
-  <button class="bbcode-button" data-tag="img">IMG</button>
-</div>
+  /* Whole-thread export: the container itself is the target. It stays in
+     normal document flow so a long thread continues onto the next pages
+     instead of being cut off at the first one. */
+  .comlink-container.print-target {
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    backdrop-filter: none !important;
+  }
 
-    Add the following JavaScript code to the comlink.js file to handle the button clicks and insert the BBCode tags:
+  /* Single-message export: only the target message stays; the container's own
+     box (position, border, padding, decorations) is neutralised so the message
+     starts at the top-left of the page. */
+  .comlink-container.print-single {
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: none !important;
+    backdrop-filter: none !important;
+    clip-path: none !important;
+  }
 
-javascript
+  .comlink-container.print-single::before,
+  .comlink-container.print-single::after {
+    display: none !important;
+  }
 
-$(document).ready(function () {
-  $(".bbcode-button").on("click", function () {
-    const tag = $(this).data("tag");
-    const textarea = $(".editor");
+  .comlink-container.print-single > .message:not(.print-target) {
+    display: none !important;
+  }
 
-    // Get the cursor position in the textarea
-    const startPos = textarea.prop("selectionStart");
-    const endPos = textarea.prop("selectionEnd");
+  /* Do not split a message across two pages when it can be avoided. */
+  .print-target.message,
+  .comlink-container.print-target > .message {
+    break-inside: avoid;
+  }
 
-    // Wrap the selected text with BBCode tags
-    const beforeTag = `[${tag}]`;
-    const afterTag = `[/${tag}]`;
-    const selectedText = textarea.val().substring(startPos, endPos);
+  .print-target {
+    margin: 0;
+    padding: 20px;
+    /* Force background colours/images to print: browsers omit them by
+       default unless the user enables "background graphics" in the print
+       dialog. We can't force that setting, but printing our own background
+       here means it still shows up as soon as that box is checked. */
+    background-color: #1c1c1c;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 
-    // Insert the new text with BBCode tags
-    textarea.val(
-      textarea.val().substring(0, startPos) +
-        beforeTag +
-        selectedText +
-        afterTag +
-        textarea.val().substring(endPos)
-    );
+  /* Hover-only action buttons (reorder/edit/pdf/delete) are UI chrome, not
+     part of the handout — never include them in the exported PDF. */
+  .print-target .arrow-container,
+  .print-target .delete-btn {
+    display: none !important;
+  }
 
-    // Set the new cursor position
-    textarea.prop("selectionStart", startPos + beforeTag.length);
-    textarea.prop("selectionEnd", endPos + beforeTag.length);
-  });
-});
-
-
+  /* .admin-message .message-content, .profile-pic and .name all use an
+     animated CRT-scanline mask (animation: retro-future-tv-lines + a striped
+     -webkit-mask-image) for a subtle flicker effect on screen. Printing (and
+     "Save as PDF", which uses the same print pipeline) captures a single
+     frozen frame of a CSS animation instead of animating it, so the striped
+     mask shows up as a static, hard-edged cut pattern -- e.g. usernames end
+     up looking crossed out. Disabling the animation and mask for print only
+     avoids that: the on-screen effect is completely unaffected. */
+  .admin-message .message-content,
+  .profile-pic,
+  .name {
+    animation: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+}

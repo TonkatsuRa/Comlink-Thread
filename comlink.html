@@ -10,15 +10,22 @@
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.2.0/markdown-it.min.js"></script>
+  <!-- html2canvas 1.4.1 (MIT), used only by the PNG export buttons. Served from this repository
+       (lib/) instead of a CDN so a compromised or altered CDN file can never run on this page's
+       origin, where it could read the saved threads from localStorage. -->
+  <script src="lib/html2canvas.min.js"></script>
   <script src="comlink.js"></script>
 </head>
 
 <body>
 
-  <!-- Sidebar -->
+  <!-- Sidebar: message composer + roster management -->
   <div class="sidebar" data-augmented-ui="border tl-clip br-clip">
-    <h2>Create Message</h2>
+    <div class="sidebar-title-row">
+      <h2>Create Message</h2>
+      <span id="message-count-wrap">Msgs: <span id="message-count">0</span></span>
+    </div>
+
     <label for="alias-input">User:</label>
     <input type="text" id="alias-input" placeholder="Enter Alias">
     <label for="profile-pic-input">Profile Picture:</label>
@@ -33,7 +40,7 @@
       </select>
       <button id="delete-user-btn" class="user-delete-btn">x</button>
     </div>
-    
+
     <label for="alignment-select">Message Alignment:</label>
     <select id="alignment-select">
       <option value="left">Left</option>
@@ -41,19 +48,42 @@
     </select>
     <label for="message-input">Message:</label>
     <textarea name="content" class="editor" data-editor></textarea>
-   <!--- <label for="timestamp-input">Date & Time:</label> --->
-<!--- <input type="text" id="timestamp-input" placeholder="yyyy-mm-dd hh:mm:ss"> --->
-<button id="send-message-btn">Send Message</button>
-</div>
 
-<!-- Main content area -->
-<div class="comlink-container" data-augmented-ui="tl-clip tr-clip br-clip bl-clip border">
-  <!-- Your message content -->
-</div>
+    <div class="composer-actions">
+      <button id="send-message-btn">Send Message</button>
+      <button id="cancel-edit-btn" class="secondary-btn" style="display:none;">Cancel Edit</button>
+    </div>
+    <div class="composer-actions">
+      <button id="clear-message-btn" class="secondary-btn">Clear Draft</button>
+      <button id="clear-thread-btn" class="danger-btn">Clear Thread</button>
+    </div>
 
-<script>
-// Your existing JavaScript code for the Shadowrun Comlink project
-</script>
+    <label class="export-thread-label">Export whole thread:</label>
+    <div class="composer-actions">
+      <button id="export-thread-pdf-btn" class="secondary-btn">Thread → PDF</button>
+      <button id="export-thread-png-btn" class="secondary-btn">Thread → PNG</button>
+    </div>
+
+    <label class="export-thread-label">Saved threads:</label>
+    <div class="composer-actions">
+      <input type="text" id="thread-name-input" placeholder="Thread name">
+      <button id="save-thread-btn" class="secondary-btn">Save Thread</button>
+    </div>
+    <select id="saved-threads-select">
+      <option value="">Select saved thread...</option>
+    </select>
+    <div class="composer-actions">
+      <button id="load-thread-btn" class="secondary-btn">Load</button>
+      <button id="delete-thread-btn" class="danger-btn">Delete</button>
+    </div>
+
+    <span id="status-message" role="status" aria-live="polite"></span>
+  </div>
+
+  <!-- Main content area: rendered message thread -->
+  <div class="comlink-container" data-augmented-ui="tl-clip tr-clip br-clip bl-clip border">
+    <!-- Your message content -->
+  </div>
 
 <script>
 $(document).on("mousedown", "[data-bbcode]", function() {
@@ -74,7 +104,6 @@ $(document).ready(function() {
     $(el).addClass("editor-" + i);
   });
 });
-
 
 function getInputSelection(elem) {
   if (typeof elem != "undefined") {
